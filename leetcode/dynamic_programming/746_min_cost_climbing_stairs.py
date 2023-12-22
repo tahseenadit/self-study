@@ -35,8 +35,9 @@ Consider `cost = [10, 15, 20]`.
 4. Return `result = 15`.
 
 ### Time Complexity
-- The time complexity is \(O(n)\), where \(n\) is the length of the `cost` list. This is due to the single for-loop iterating through the list.
+- The time complexity is (O(n)), where (n) is the length of the `cost` list. This is due to the single for-loop iterating through the list.
 
 ### Space Complexity
-- The space complexity is \(O(1)\). No additional space is used proportional to the input size, except for the variable `result`. (Note: Modifying the input list itself does not count towards extra space complexity in this analysis.)
+- The space complexity is (O(1)). No additional space is used proportional to the input size, except for the variable `result`. 
+(Note: Modifying the input list itself does not count towards extra space complexity in this analysis.)
 """
