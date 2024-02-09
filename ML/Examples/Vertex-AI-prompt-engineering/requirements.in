@@ -1,0 +1,7 @@
+vertexai
+flask
+google-cloud-aiplatform
+flask_cors
+fastapi
+uvicorn
+gunicorn
