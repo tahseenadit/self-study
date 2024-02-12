@@ -1,2 +1,2 @@
 # self-study
-This repo contains study materials
+This repo contains study materials .
