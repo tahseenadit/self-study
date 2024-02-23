@@ -32,3 +32,32 @@ In Python, objects are passed by reference, meaning you pass references to the m
 Changing the value of an instance variable modifies the object itself, not just the reference.
 Understanding reference behavior is crucial for efficient memory management in Python.
 """
+
+class ClassA:
+    def __init__(self):
+        pass
+
+class ClassB:
+    def __init__(self):
+        self._instance = None
+
+    def get_instance(self):
+        self._instance = ClassA()
+        instance = self._instance
+        self.modify_instance()
+        return instance
+ 
+    def modify_instance(self):
+        self._instance = None
+ 
+obj1 = ClassB()
+obj2 = obj1.get_instance()
+print(obj1._instance)
+print(obj2)
+
+"""
+In this case, you can use instance local variable if you want to return whatever self._instance is assigned before modification.
+Even here, chaging self._instance does not change instance local variable. 
+Remember, values are passed by reference, not by value. This means you pass references to the location in memory, 
+not copies of the data itself.
+"""
