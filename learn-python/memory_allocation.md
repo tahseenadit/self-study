@@ -1,3 +1,4 @@
+```python
 class MyClass:
     a = 0
     def __init__(self):
@@ -5,6 +6,7 @@ class MyClass:
     
 obj = MyClass()
 obj.my_var = 2
+```
 
 When the interpreter starts, it executes `class MyClass`, then it executes a = 0, then it executes `def __init__(self):`. After that it directly goes to `obj = MyClass()` and then it executes `self.my_var = 1`. Now it knows that obj instance has a instance variable. Then the interpreter executes obj.my_var = 2. Why python interpreter behaves this way ? How does it affect the performance and memory consumption compared to other programming language like Java ?
 
@@ -36,12 +38,14 @@ In summary, both Python and Java have different approaches to object creation an
 
 How come Java's static approach can be more memory-efficient for large numbers of objects ? For example, in the below code snippet python interpreter does not even execute self.my_var. It does not allocate memory for that at all. Isn't this more memory efficient than allocating memory at compile time like java does ?
 
+```python
 class MyClass:
     a = 0
     def __init__(self):
         self.my_var = 1
     
 MyClass.a = 2
+``````
 
  I'll address the memory efficiency aspects of Python and Java in the context you've provided:
 
