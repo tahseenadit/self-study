@@ -25,13 +25,13 @@ When dealing with petabytes of data, consider using BigQuery. BigQuery thrives o
 - **Cost-Based Optimization:** BigQuery analyzes your query and chooses the most efficient execution plan, like a chess grandmaster strategizing the best moves for victory.
 
 
-**Unmatched Scalability**: It can handle massive queries without worrying about server limitations.
-**Cost-Effectiveness**: You only pay for the resources used, making it ideal for bursty workloads.
-**Hassle-Free Management**: No need to provision or manage servers, saving you time and effort.
-**Continuous Stream Processing:** BigQuery continuously receives data as it arrives from your chosen data source. Whether it’s sensor readings, user interactions, or log entries, BigQuery ensures that the data is immediately available for processing.
-**Near-Instantaneous Data Availability:** As data is ingested into BigQuery, it becomes instantly available for querying and analysis. There’s no need to wait for batch processing or overnight data loads; the insights you need are just a query away.
-**SQL-Powered Analytics:** BigQuery leverages the power of SQL for real-time analytics. You can run SQL queries on your streaming data, enabling you to derive insights, perform aggregations, and generate reports in real time.
-**Low Latency and High Throughput:** BigQuery’s in-memory processing capabilities ensure low query latency, even when dealing with large volumes of streaming data. This makes it suitable for applications where real-time responses are critical. But if the data is not already in-memory, then first time there may be slight delay.
+**Unmatched Scalability**: It can handle massive queries without worrying about server limitations.\
+**Cost-Effectiveness**: You only pay for the resources used, making it ideal for bursty workloads.\
+**Hassle-Free Management**: No need to provision or manage servers, saving you time and effort.\
+**Continuous Stream Processing:** BigQuery continuously receives data as it arrives from your chosen data source. Whether it’s sensor readings, user interactions, or log entries, BigQuery ensures that the data is immediately available for processing.\
+**Near-Instantaneous Data Availability:** As data is ingested into BigQuery, it becomes instantly available for querying and analysis. There’s no need to wait for batch processing or overnight data loads; the insights you need are just a query away.\
+**SQL-Powered Analytics:** BigQuery leverages the power of SQL for real-time analytics. You can run SQL queries on your streaming data, enabling you to derive insights, perform aggregations, and generate reports in real time.\
+**Low Latency and High Throughput:** BigQuery’s in-memory processing capabilities ensure low query latency, even when dealing with large volumes of streaming data. This makes it suitable for applications where real-time responses are critical. But if the data is not already in-memory, then first time there may be slight delay.\
 **BigQuery's Buffering and Windowing:**
 
 BigQuery's commitment to data **consistency and reliability** goes beyond just storing your data. It employs a two-pronged approach: **buffering** and **table windowing**, ensuring data integrity and offering you control over insertions. Buckle up, data enthusiasts, for a nerdy technical exploration!
