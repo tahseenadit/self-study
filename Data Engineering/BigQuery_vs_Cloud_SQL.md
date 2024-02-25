@@ -38,3 +38,9 @@ While these features can offer performance benefits, their impact depends on var
 - Limited Parallelization: Cloud SQL's parallelization capabilities might be less extensive compared to BigQuery, potentially hindering performance gains for complex queries on large datasets, even with partitioning and materialized views.
 
 For **smaller datasets, specific query patterns, and a focus on predictable pricing**, Cloud SQL with careful implementation of partitioning and materialized views can be a cost-effective option.
+
+# Use Cases
+
+Imagine you are inserting data 100 times in a day. Would you cold start your resources 100 times for that ? No, so bigquery is not an option here. You would just cold start your resources once and then for the time period when your data gets inserted 100 times, you keep your resources on even if they remain idle for some time. So, you go with Cloud SQL. 
+
+Now, imagine you are analysing 1 million data. Your analysis includes executing multiple complex queries one after the other. On top of that, your data is globally distributed. You need automatic provision of resources based on the complexity of each of your queries without any limitation, you need parallel processing power for super fast analysis and results, you need automatic management of networking for minimal latency. You go with BigQuery, not Cloud SQL.
