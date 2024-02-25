@@ -4,7 +4,7 @@ When dealing with petabytes of data, consider using BigQuery. BigQuery thrives o
 
 **Columnar Storage: From Rows to Columns and Beyond**
 
-- Forget the simplistic row-based organization. BigQuery thrives on **columnar storage**, where each data attribute (e.g., user ID, timestamp, purchase amount) resides in its own **columnar file**, optimized for specific data types. Think of it like having a separate library for each attribute, organized by genre (numerical, categorical, etc.).
+- Forget the simplistic row-based organization. BigQuery thrives on **columnar storage**, where each data attribute (e.g., user ID, timestamp, purchase amount) resides in its own **columnar file**, optimized for specific data types. Think of it like having a separate library for each attribute, organized by genre (numerical, categorical, etc.). BigQuery utilizes **columnar storage format** for efficient data retrieval. This format allows for **fast data skipping** and retrieval of specific columns, further contributing to the perception of real-time availability.
 
 - **Compression Unleashed:** Each column gets squeezed using techniques like **LZ4** and **Zstandard**. Imagine replacing repetitive values with codes (think "1,1,1,1" becoming "4*1"). This "dictionary encoding" shrinks data size like a compression sock for your storage needs.
 
@@ -96,11 +96,9 @@ Represent the individual instruments in the orchestra. These are powerful machin
 
 But BigQuery uses a serverless architecture, meaning it spins up resources on demand to handle your queries. Resources are provisioned on-demand based on the complexity and size of the query. While this offers scalability and cost-effectiveness, it can lead to cold start delays when resources need to be spun up for the first time. **This is bad for retrieving real-time analytic insights**. When a new query arrives or when additional resources are needed to handle increased demand, there may be a brief delay while BigQuery provisions and initializes the required resources. During this time, the query may experience slightly longer latency compared to subsequent queries.
 
-**1. Technical Underpinnings of Real-Time Availability and Cold Start Delay:**
+**1. Technical Underpinnings of Real-Time Availability**
 
 - **Streaming Ingestion:** BigQuery offers **streaming inserts** using tools like Pub/Sub or Cloud Dataflow. This allows data to be **continuously written** into BigQuery tables with minimal latency.
-
-- **Data Storage:** BigQuery utilizes a **columnar storage format** for efficient data retrieval. This format allows for **fast data skipping** and retrieval of specific columns, further contributing to the perception of real-time availability.
 
 **2. Real-Time Availability vs. Real-Time Analysis:**
 
