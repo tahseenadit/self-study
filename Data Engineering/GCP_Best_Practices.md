@@ -55,7 +55,7 @@ When dealing with petabytes of data, consider using BigQuery. BigQuery thrives o
 **Low Latency and High Throughput:** BigQuery’s in-memory processing capabilities ensure low query latency, even when dealing with large volumes of streaming data. This makes it suitable for applications where real-time responses are critical. But if the data is not already in-memory, then first time there may be slight delay.\
 **BigQuery's Buffering and Windowing:**
 
-BigQuery's commitment to data **consistency and reliability** goes beyond just storing your data. It employs a two-pronged approach: **buffering** and **table windowing**, ensuring data integrity and offering you control over insertions. Buckle up, data enthusiasts, for a nerdy technical exploration!
+BigQuery's commitment to data **consistency and reliability** goes beyond just storing your data. It employs a two-pronged approach: **buffering** and **table windowing**, ensuring data integrity and offering you control over insertions.
 
 **1. Buffering: A Staging Ground for Data Integrity**
 
@@ -79,9 +79,15 @@ Think of table windowing as a **time-travel portal** for your data. BigQuery all
 
 **Remember:** BigQuery's buffering and windowing features work seamlessly behind the scenes, but understanding their technical underpinnings empowers you to make informed decisions about data consistency, query behavior, and data pipeline coordination within your BigQuery environment.
 
-But BigQuery uses a serverless architecture, meaning it spins up resources on demand to handle your queries. This is fantastic for scalability and cost-efficiency, but it comes with a slight trade-off: cold boot times. **This is bad for retrieving real-time analytic insights**. When a new query arrives or when additional resources are needed to handle increased demand, there may be a brief delay while BigQuery provisions and initializes the required resources. During this time, the query may experience slightly longer latency compared to subsequent queries.
+But BigQuery uses a serverless architecture, meaning it spins up resources on demand to handle your queries. Resources are provisioned on-demand based on the complexity and size of the query. While this offers scalability and cost-effectiveness, it can lead to cold start delays when resources need to be spun up for the first time. **This is bad for retrieving real-time analytic insights**. When a new query arrives or when additional resources are needed to handle increased demand, there may be a brief delay while BigQuery provisions and initializes the required resources. During this time, the query may experience slightly longer latency compared to subsequent queries.
 
-**1. Real-Time Availability vs. Real-Time Analysis:**
+**1. Technical Underpinnings of Real-Time Availability and Cold Start Delay:**
+
+- **Streaming Ingestion:** BigQuery offers **streaming inserts** using tools like Pub/Sub or Cloud Dataflow. This allows data to be **continuously written** into BigQuery tables with minimal latency.
+
+- **Data Storage:** BigQuery utilizes a **columnar storage format** for efficient data retrieval. This format allows for **fast data skipping** and retrieval of specific columns, further contributing to the perception of real-time availability.
+
+**2. Real-Time Availability vs. Real-Time Analysis:**
 
 - **Real-time availability:** BigQuery excels at **ingesting data with low latency**. Once data is written to BigQuery, it becomes **available for querying almost instantaneously**. This means the data itself is readily accessible within milliseconds.
 
@@ -92,14 +98,6 @@ But BigQuery uses a serverless architecture, meaning it spins up resources on de
     - **Query complexity:** Complex queries involving joins, aggregations, or filtering require more processing power and time to execute, further extending the perceived latency compared to simpler queries.
 
     - **Data size:** Processing massive datasets naturally takes longer than smaller ones, even with BigQuery's efficient parallel processing. This can impact the responsiveness of real-time dashboards or visualizations.
-
-**2. Technical Underpinnings of Real-Time Availability and Cold Start Delay:**
-
-- **Streaming Ingestion:** BigQuery offers **streaming inserts** using tools like Pub/Sub or Cloud Dataflow. This allows data to be **continuously written** into BigQuery tables with minimal latency.
-
-- **Data Storage:** BigQuery utilizes a **columnar storage format** for efficient data retrieval. This format allows for **fast data skipping** and retrieval of specific columns, further contributing to the perception of real-time availability.
-
-- **Resource Management:** BigQuery employs a **serverless architecture**. This means resources are **provisioned on-demand** based on the complexity and size of the query. While this offers scalability and cost-effectiveness, it can lead to **cold start delays** when resources need to be spun up for the first time.
 
 **3. Mitigating Cold Start Delays for Real-Time Analysis:**
 
