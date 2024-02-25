@@ -21,6 +21,23 @@ When dealing with petabytes of data, consider using BigQuery. BigQuery thrives o
 **Beyond the Basics: Deep Dive into Optimization Techniques**
 
 - **Materialized Views:** Pre-computed aggregates for frequently accessed data, like having cheat sheets for common queries, saving precious processing time.
+    What are they?
+
+        Materialized views are like pre-calculated summaries of your data. They store the results of frequently executed queries, similar to having pre-made answers to those pesky recurring questions.
+    How do they work?
+
+        Define the view: You specify a query that calculates the desired aggregation (e.g., average daily sales).
+        BigQuery calculates: BigQuery runs the query and stores the results in a separate table (the materialized view).
+        Faster queries: When you run the same query again, BigQuery retrieves the results from the materialized view instead of recalculating everything from scratch. This is significantly faster, especially for complex aggregations or large datasets.
+    Benefits:
+
+        Reduced query execution time: No need to wait for BigQuery to re-run the entire aggregation, leading to faster response times for your queries.
+        Improved perceived real-time performance: By readily having pre-calculated results, materialized views make your analytics feel more responsive, especially for frequently asked questions.
+        Efficient resource utilization: By avoiding redundant calculations, materialized views conserve resources and potentially reduce costs.
+    Things to consider:
+
+        Maintenance overhead: Materialized views need to be updated periodically to reflect changes in the underlying data. This adds some maintenance overhead compared to traditional queries.
+        Storage space: Materialized views occupy additional storage space as they store pre-computed results.
 - **Clustering:** Organizing data based on frequently used columns for faster retrieval, like arranging library books by genre for easier browsing.
 - **Cost-Based Optimization:** BigQuery analyzes your query and chooses the most efficient execution plan, like a chess grandmaster strategizing the best moves for victory.
 
@@ -83,23 +100,6 @@ But BigQuery uses a serverless architecture, meaning it spins up resources on de
 **3. Mitigating Cold Start Delays for Real-Time Analysis:**
 
 - **Materialized views:** Pre-compute aggregations for frequently accessed data, reducing query execution time and improving perceived real-time performance.
-What are they?
-
-Materialized views are like pre-calculated summaries of your data. They store the results of frequently executed queries, similar to having pre-made answers to those pesky recurring questions.
-How do they work?
-
-Define the view: You specify a query that calculates the desired aggregation (e.g., average daily sales).
-BigQuery calculates: BigQuery runs the query and stores the results in a separate table (the materialized view).
-Faster queries: When you run the same query again, BigQuery retrieves the results from the materialized view instead of recalculating everything from scratch. This is significantly faster, especially for complex aggregations or large datasets.
-Benefits:
-
-Reduced query execution time: No need to wait for BigQuery to re-run the entire aggregation, leading to faster response times for your queries.
-Improved perceived real-time performance: By readily having pre-calculated results, materialized views make your analytics feel more responsive, especially for frequently asked questions.
-Efficient resource utilization: By avoiding redundant calculations, materialized views conserve resources and potentially reduce costs.
-Things to consider:
-
-Maintenance overhead: Materialized views need to be updated periodically to reflect changes in the underlying data. This adds some maintenance overhead compared to traditional queries.
-Storage space: Materialized views occupy additional storage space as they store pre-computed results.
 
 - **Caching:** Utilize caching mechanisms to store frequently accessed data results, minimizing the need for full query execution and reducing latency.
 
