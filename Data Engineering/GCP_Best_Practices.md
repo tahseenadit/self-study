@@ -23,7 +23,7 @@ When dealing with petabytes of data, consider using BigQuery. BigQuery thrives o
 - **Materialized Views:** Pre-computed aggregates for frequently accessed data, like having cheat sheets for common queries, saving precious processing time.
     What are they?
 
-        Materialized views are like pre-calculated summaries of your data. They store the results of frequently executed queries, similar to having pre-made answers to those pesky recurring questions.
+    Materialized views are like pre-calculated summaries of your data. They store the results of frequently executed queries, similar to having pre-made answers to those pesky recurring questions.
     How do they work?
 
         Define the view: You specify a query that calculates the desired aggregation (e.g., average daily sales).
