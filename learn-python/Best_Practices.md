@@ -37,7 +37,7 @@ except Exception as ex:
 
 Instead, just use Exception in general as above and raise the exception instead of just printing the message. If your code snippet is part of a function and you raise exception, then may be some other function that called your function may catch it and handle it. If you just print it, then anyone calling your function won't be able to catch the exception because then you have handled it very poorly by just printing the exception message.
 
-# Do not call low-level function call
+# Do not call low-level function of a library unless needed
 
 If you see the imread function of rawpy library, it looks like below:
 
