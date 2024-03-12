@@ -186,3 +186,40 @@ print(obj.class_var)  # Output: [1, 2, 3, 4] (Also modified)
 - **Reduced Potential for Errors:** It eliminates the possibility of accidentally modifying `var_x` and unintentionally affecting `Class_c.var_x`.
 
 **In essence, while Option 2 might seem to work due to reference passing, Option 1 remains the preferred approach for better code clarity, maintainability, and reduced risk of unintended consequences.**
+
+ **Consider performance implications. While Python does optimize attribute lookups to a degree, there's still a slight overhead involved.**
+
+**Here's a breakdown of how Python handles attribute lookups and caching:**
+
+1. **Initial Lookup:**
+   - When encountering `obj.class_var` for the first time, Python searches for `class_var` in the object's namespace.
+   - This involves a dictionary lookup, which has a small but measurable cost.
+
+2. **Caching:**
+   - If `class_var` is found in the object's namespace, Python caches its value in the object's `__dict__` attribute (internal dictionary).
+   - Subsequent accesses to `obj.class_var` within a relatively short timeframe often retrieve the value directly from the cache, avoiding a full lookup.
+
+3. **Overhead:**
+   - The cache isn't unlimited and can be cleared under certain circumstances, such as deleting `class_var` or modifying its value.
+   - Nested attribute access (e.g., `obj.nested.attribute`) can involve multiple lookups, potentially increasing overhead.
+
+**Considerations for Intermediate Variables:**
+
+- **Potential Performance Gain:** Introducing an intermediate variable can eliminate the need for repeated attribute lookups within a loop or tight code block.
+   - However, be mindful of the trade-offs with code readability and maintainability.
+
+**When to Prioritize Caching:**
+
+- **Frequent Accesses:** If you anticipate frequent accesses to `obj.class_var` within a small code section, the caching mechanism likely outweighs the overhead of a few initial lookups.
+- **Nested Attributes:** The overhead becomes more noticeable with nested attribute chains, making caching more beneficial.
+
+**Best Practices:**
+
+- **Prioritize Clarity First:** Favor clear and maintainable code structure unless performance profiling identifies specific bottlenecks.
+- **Profiling:** Use profiling tools to measure performance impact in critical code sections and make informed decisions.
+- **Alternative Solutions:** Consider alternative approaches for performance-critical scenarios, such as:
+    - Using properties for controlled attribute access
+    - Employing caching libraries for explicit management
+
+**Remember:** In most cases, the performance difference between direct access and intermediate variables is negligible. Focus on writing clear and readable code, optimizing only when necessary based on profiling results.
+
