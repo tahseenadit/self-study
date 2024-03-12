@@ -223,3 +223,118 @@ print(obj.class_var)  # Output: [1, 2, 3, 4] (Also modified)
 
 **Remember:** In most cases, the performance difference between direct access and intermediate variables is negligible. Focus on writing clear and readable code, optimizing only when necessary based on profiling results.
 
+# Python Class Overhead
+
+There can be some overhead associated with creating Python classes. This overhead includes memory consumption for storing the class attributes, methods, and other related metadata. Additionally, there might be a slight performance overhead when accessing attributes or methods due to the dynamic nature of Python's attribute lookup mechanism. However, in most cases, the overhead is minimal and not a significant concern for most applications.
+
+Here are some reasons why creating Python classes may incur overhead:
+
+1. **Memory Consumption**: Each class definition in Python consumes memory to store its attributes, methods, and other related metadata. This memory overhead can add up, especially in applications with many classes or instances.
+
+2. **Dynamic Nature of Python**: Python is a dynamically typed language, which means that attribute lookup is performed at runtime. This dynamic attribute lookup mechanism may introduce a slight performance overhead compared to statically typed languages where attribute lookup can be resolved at compile time.
+
+3. **Object Instantiation**: Creating instances of classes in Python involves some overhead, such as memory allocation for the instance itself and initializing attributes. While this overhead is generally low, it can become significant if many instances are created frequently.
+
+4. **Method Resolution**: Python employs method resolution order (MRO) to determine the order in which methods are called in the presence of inheritance. This process involves traversing the class hierarchy and can incur some overhead, particularly in complex inheritance structures.
+
+5. **Attribute Access**: Python provides mechanisms such as properties, descriptors, and dunder methods (__getattr__, __setattr__, etc.) for controlling attribute access. While these features offer flexibility and convenience, they may introduce additional overhead compared to simple attribute access.
+
+Overall, while there is some overhead associated with creating Python classes, it is usually minimal and rarely a significant concern for most applications. The benefits of using classes, such as code organization, encapsulation, and code reuse, typically outweigh the associated overhead.
+
+The memory consumption associated with class definition in Python primarily occurs at runtime, not compile time. This means that when your Python program is running, memory is allocated to store the attributes, methods, and other metadata associated with each class.
+
+Here's an example to illustrate this:
+
+```python
+class MyClass:
+    def __init__(self, x):
+        self.x = x
+
+    def my_method(self):
+        return self.x
+
+# Creating an instance of MyClass
+obj = MyClass(10)
+```
+
+In this example, the `MyClass` definition is processed at runtime when the Python interpreter encounters it during program execution. Memory is allocated to store information about the class, including its methods (`__init__` and `my_method`), attributes (such as `x`), and other metadata.
+
+The memory consumption increases as you create more instances of the class or define additional classes in your program. For example:
+
+```python
+# Creating multiple instances of MyClass
+obj1 = MyClass(20)
+obj2 = MyClass(30)
+```
+
+Each instance of `MyClass` consumes memory to store its own attributes, methods, and a reference to the class definition.
+
+Compile time in Python generally involves parsing and compiling the source code into bytecode, which does not directly involve storing class definitions in memory. Instead, the bytecode includes instructions for the interpreter to dynamically create classes and instances as needed during runtime execution. Therefore, the memory consumption associated with class definitions occurs at runtime.
+
+In statically typed languages like C++ or Java, the compiler knows the type of each variable and can resolve attribute lookups at compile time. This means that accessing attributes of objects in these languages is generally faster because the compiler can directly generate instructions to access the memory locations of the attributes.
+
+In contrast, Python is dynamically typed, which means that the type of a variable is determined at runtime. As a result, attribute lookup in Python involves a process of searching through the object's attributes at runtime to find the requested attribute. This dynamic attribute lookup mechanism can introduce a slight performance overhead compared to statically typed languages.
+
+Here's an example to illustrate this difference:
+
+```python
+# Python example
+class MyClass:
+    def __init__(self):
+        self.x = 10
+
+obj = MyClass()
+print(obj.x)
+```
+
+In this Python code, when `obj.x` is accessed, Python performs a lookup at runtime to find the attribute `x` associated with the object `obj`.
+
+```java
+// Java example
+public class MyClass {
+    public int x = 10;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        System.out.println(obj.x);
+    }
+}
+```
+
+In this Java code, when `obj.x` is accessed, the compiler knows the type of `obj` (MyClass) and can directly generate instructions to access the memory location of the attribute `x`.
+
+While the difference in performance between dynamic attribute lookup in Python and static attribute lookup in statically typed languages may be negligible for many applications, it can become more significant in performance-critical scenarios or when dealing with large amounts of data. However, Python's dynamic nature offers flexibility and ease of development, which often outweighs the slight performance overhead introduced by dynamic attribute lookup.
+
+While Python classes do introduce some overhead compared to simple functions, it's crucial to consider the context and trade-offs:
+
+**Overhead in Python Classes:**
+
+- **Memory Management:** Classes require additional memory for storing the class definition itself (including methods and attributes) and each object instance created from the class.
+- **Attribute Lookup:** Accessing object attributes involves a lookup process within the object's dictionary, which has a small overhead compared to directly calling a function.
+
+**However, these overheads are often minimal in most practical scenarios.** Python is optimized for attribute lookups, and the benefits of using classes often outweigh the slight overhead:
+
+**Benefits of Classes:**
+
+- **Encapsulation:** Classes bundle data (attributes) and behavior (methods) together, promoting data protection and code organization.
+- **Code Reusability:** Classes allow you to create multiple objects with the same attributes and methods, reducing code duplication.
+- **Inheritance:** Classes enable the creation of hierarchical relationships, allowing subclasses to inherit attributes and methods from parent classes, promoting code maintainability.
+
+**In specific case:**
+
+- **Simple Functions vs. Class:** If your friend's script only contained a few simple, unrelated functions, converting them to a class might be unnecessary. The overhead of creating and using the class might outweigh the benefits.
+
+**Here's a breakdown of when a class might be appropriate:**
+
+- **Shared Data and Behavior:** If the functions operate on similar data or share common functionality, a class can encapsulate this shared logic and data, improving code organization.
+- **Object-Oriented Design:** If your script deals with real-world entities with attributes and behaviors, using classes aligns well with object-oriented programming principles.
+
+**Recommendations:**
+
+- **Focus on Readability and Maintainability:** If the original code using simple functions was clear and easy to understand, there might not be a compelling reason to rewrite it as a class.
+- **Consider the Trade-offs:** Evaluate the complexity of the script and the potential benefits of using a class for data encapsulation, code reusability, and maintainability.
+- **Profiling:** If performance becomes a concern, use profiling tools to measure the actual overhead of the class structure. This can help you make data-driven decisions.
+
+**In essence, while Python classes introduce a slight overhead, their benefits in terms of code organization, maintainability, and reusability often outweigh this overhead in most practical scenarios. Focus on using classes when they provide a clear advantage in terms of code structure and design.**
