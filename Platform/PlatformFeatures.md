@@ -29,4 +29,6 @@ Your platform can have two types of users:
 
 # Login
 
-External application can request user of your platform to authenticate the application to your platform. For example, the external application can ask credentials from the user and send these credentials to your platform. Your platform can authenticate the credentials and authorize the external application to interact with the platform on behalf of the user.
+- External application can request user of your platform to authenticate the application to your platform. For example, the external application can ask credentials from the user and send these credentials to your platform. Your platform can authenticate the credentials and authorize the external application to interact with the platform on behalf of the user.
+
+- Instead of asking the user for credentials, the user can generate a token from your platform and store it in his system. The external application can fetch this token whenever needed and send the token to your platform. Your platform can authenticate the token and authorize the external application to interact with the platform on behalf of the user.
