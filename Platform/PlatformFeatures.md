@@ -20,6 +20,13 @@ The user may interact with your services in the following ways:'
 - Library
 - GUI
 
+# Users
+
+Your platform can have two types of users:
+
+- User
+- External application
+
 # Login
 
 Your platform may have many services. 
