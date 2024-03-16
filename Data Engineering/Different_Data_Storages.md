@@ -5,8 +5,11 @@ The passage highlights how different database types excel at specific request pa
 **1. Request Categories and Database Choices:**
 
 - **Simple Reads (One or Few Tables):**
+
+SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables. They use indexing, query optimization techniques, and caching mechanisms to speed up data retrieval operations.
+
   - **Why?** All database types can handle these queries. SQL databases (MySQL, PostgreSQL) are generally efficient for structured data retrieval.
-  - **Justification:** These queries involve basic table scans or joins on a limited number of tables. SQL databases are optimized for such operations with efficient indexing mechanisms.
+  - **Justification:** These queries involve basic table scans or joins on a limited number of tables. SQL databases are optimized for such operations with efficient indexing mechanisms. SQL databases support SQL queries, which are declarative and allow developers to specify the desired data without worrying about the underlying implementation details. Additionally, SQL databases employ various optimization techniques such as query caching, query plan optimization, and indexing to enhance read performance.
 
 - **Reading Small Sections of Many Joined Tables:**
   - **Why?** Graph databases (Neo4J) excel at these queries due to their ability to navigate relationships between data points efficiently.
