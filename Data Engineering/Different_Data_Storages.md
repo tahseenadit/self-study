@@ -1,3 +1,21 @@
+## SQL database engine - Underlying implementation details
+
+In the context of SQL databases, when referring to "underlying implementation details," it encompasses a range of technical considerations related to how the database engine executes the SQL queries and manages the data. Here are some of the key implementation details that developers don't need to worry about when writing SQL queries:
+
+1. **Query Execution Plan**: SQL databases internally generate an execution plan for each SQL query, which determines the most efficient way to retrieve the requested data. This plan includes details such as which indexes to use, how to join tables, and the order of operations for filters and aggregations. Developers don't need to manually optimize the query execution plan; the database engine handles this based on statistics, query optimizer algorithms, and the database schema.
+
+2. **Indexing Strategies**: SQL databases support indexing to improve query performance by allowing rapid lookup and retrieval of data. The choice of which columns to index, the type of index (e.g., B-tree, hash, bitmap), and the indexing algorithms are handled by the database engine based on factors like query patterns, data distribution, and storage considerations. Developers specify which columns to index but don't need to manage the low-level details of index creation, maintenance, or selection during query execution.
+
+3. **Transaction Management**: SQL databases provide ACID properties (Atomicity, Consistency, Isolation, Durability) to ensure data integrity and consistency. Transaction management, including handling concurrent access, locking, logging, and rollback mechanisms, is implemented by the database engine. Developers write SQL queries without needing to explicitly manage transactions or worry about the intricacies of isolation levels, locking protocols, or recovery mechanisms.
+
+4. **Storage Structures and Data Representation**: SQL databases store data in various physical structures optimized for efficient storage, retrieval, and manipulation. This includes page-based storage models, data compression techniques, data encoding formats, and memory management strategies. Developers interact with logical data models (tables, rows, columns) using SQL queries, abstracted from the underlying storage structures and data representation details managed by the database engine.
+
+5. **Concurrency Control and Locking**: SQL databases handle concurrent access to data by implementing concurrency control mechanisms such as locking, multi-version concurrency control (MVCC), or optimistic concurrency control. These mechanisms ensure data consistency and prevent data corruption in multi-user environments. Developers focus on writing SQL queries without needing to explicitly manage locks or handle concurrency issues at the application level.
+
+6. **Buffer Management and Caching**: SQL databases use buffer pools and caching mechanisms to optimize data access by keeping frequently accessed data pages in memory. Buffer management strategies, cache eviction policies, and memory allocation decisions are managed by the database engine based on access patterns and resource constraints. Developers benefit from transparent caching and efficient data retrieval without needing to manage memory allocation or caching explicitly.
+
+In summary, SQL databases abstract away many low-level implementation details related to query optimization, indexing, transaction management, storage structures, concurrency control, and caching. Developers can focus on writing declarative SQL queries to specify the desired data operations, relying on the database engine to handle the underlying complexities efficiently.
+
 ## Deep Dive into Database Types and Use Cases
 
 The passage highlights how different database types excel at specific request patterns. Here's a breakdown with technical details, justifications, and including BigQuery:
