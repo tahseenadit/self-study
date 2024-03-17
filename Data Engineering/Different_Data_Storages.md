@@ -30,7 +30,7 @@ The passage highlights how different database types excel at specific request pa
 
 - **Simple Reads (One or Few Tables):**
 
-\tWhen it's mentioned that SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables, it means that they excel at efficiently retrieving data from individual tables or a small number of related tables. This includes scenarios such as:
+<space>When it's mentioned that SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables, it means that they excel at efficiently retrieving data from individual tables or a small number of related tables. This includes scenarios such as:
 
 Reading Few Rows from One Table: SQL databases are optimized for efficiently retrieving a subset of rows from a single table based on specified conditions. For example, fetching a specific customer's details, selecting products within a certain price range, or retrieving orders placed on a particular date.
 
