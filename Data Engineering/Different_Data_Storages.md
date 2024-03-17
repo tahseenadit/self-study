@@ -56,8 +56,8 @@ The passage highlights how different database types excel at specific request pa
   - **Justification:** Graph databases store data with explicit connections (edges) between entities. This structure allows for fast traversal and retrieval of interconnected data across many tables. They excel at traversing complex relationships between entities, making them ideal for scenarios where data has many-to-many relationships or requires extensive graph-based querying.
 
 - **High-Volume Writes (10,000 Writes per Second):**
-  - **Why?** Columnar databases (Cassandra, BigTable) or time-series databases can handle high write loads efficiently.
-  - **Justification:** Columnar databases store data in columns instead of rows, allowing for faster writes focused on specific data elements. Time-series databases are specifically designed for high-throughput time-based data ingestion.
+  - **Why?** Columnar databases (Cassandra, BigTable) or time-series databases can handle high write loads efficiently. Columnar and time-series databases are optimized for write-heavy workloads where data is frequently inserted or updated. They are designed to efficiently handle large volumes of writes while maintaining high availability and scalability.
+  - **Justification:** Columnar databases store data in columns instead of rows, allowing for faster writes focused on specific data elements. Only the columns being modified need to be updated. Time-series databases are specifically designed for high-throughput time-based data ingestion. Time-series databases are optimized for storing and querying time-stamped data, making them ideal for applications that generate large amounts of time-series data, such as IoT sensors or monitoring systems.
 
 - **Frequent Updates Across Many Tables:**
   - **Why?** SQL databases with strong data isolation (PostgreSQL) excel here.
