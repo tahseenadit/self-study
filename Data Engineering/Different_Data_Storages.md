@@ -53,7 +53,7 @@ The passage highlights how different database types excel at specific request pa
 
 - **Reading Small Sections of Many Joined Tables:**
   - **Why?** Graph databases (Neo4J) excel at these queries due to their ability to navigate relationships between data points efficiently.
-  - **Justification:** Graph databases store data with explicit connections (edges) between entities. This structure allows for fast traversal and retrieval of interconnected data across many tables.
+  - **Justification:** Graph databases store data with explicit connections (edges) between entities. This structure allows for fast traversal and retrieval of interconnected data across many tables. They excel at traversing complex relationships between entities, making them ideal for scenarios where data has many-to-many relationships or requires extensive graph-based querying.
 
 - **High-Volume Writes (10,000 Writes per Second):**
   - **Why?** Columnar databases (Cassandra, BigTable) or time-series databases can handle high write loads efficiently.
