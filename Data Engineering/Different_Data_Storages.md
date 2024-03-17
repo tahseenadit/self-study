@@ -65,9 +65,9 @@ The passage highlights how different database types excel at specific request pa
 
 **2. Document Stores (MongoDB) and Speed:**
 
-The passage acknowledges that MongoDB, a popular document store, isn't known for raw speed. However, it offers advantages like:
+  Document stores like MongoDB are optimized for flexibility and scalability rather than raw performance. While they offer high throughput and scalability features, they may not provide the same level of performance as specialized databases for certain types of queries, especially those involving complex joins or transactions. However, it offers advantages like:
 
-- **Flexible Schema:** Easier to accommodate data with varying structures.
+- **Flexible Schema:** Easier to accommodate data with varying structures. MongoDB uses a flexible schema-less document model, which allows developers to store and query heterogeneous data structures efficiently. However, this flexibility comes at the cost of performance optimizations that are tailored for specific data models or query patterns.
 - **Horizontal Scaling:** Scales well by adding more servers to handle increasing data volume.
 
 **3. BigQuery and its Place in the Mix:**
