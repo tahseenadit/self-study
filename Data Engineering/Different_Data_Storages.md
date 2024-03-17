@@ -30,13 +30,13 @@ The passage highlights how different database types excel at specific request pa
 
 - **Simple Reads (One or Few Tables):**
 
-<space>When it's mentioned that SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables, it means that they excel at efficiently retrieving data from individual tables or a small number of related tables. This includes scenarios such as:
+  When it's mentioned that SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables, it means that they excel at efficiently retrieving data from individual tables or a small number of related tables. This includes scenarios such as:
 
-Reading Few Rows from One Table: SQL databases are optimized for efficiently retrieving a subset of rows from a single table based on specified conditions. For example, fetching a specific customer's details, selecting products within a certain price range, or retrieving orders placed on a particular date.
+  Reading Few Rows from One Table: SQL databases are optimized for efficiently retrieving a subset of rows from a single table based on specified conditions. For example, fetching a specific customer's details, selecting products within a certain price range, or retrieving orders placed on a particular date.
 
-Reading Few Rows from Multiple Tables and Joining Them: SQL databases are also optimized for performing joins between multiple tables to combine related data into a single result set. This involves fetching rows from multiple tables based on specified join conditions and combining them into a unified result. For instance, joining a customer table with an order table to retrieve details of customers along with their associated orders.
+  Reading Few Rows from Multiple Tables and Joining Them: SQL databases are also optimized for performing joins between multiple tables to combine related data into a single result set. This involves fetching rows from multiple tables based on specified join conditions and combining them into a unified result. For instance, joining a customer table with an order table to retrieve details of customers along with their associated orders.
 
-SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables. They use indexing, query optimization techniques, and caching mechanisms to speed up data retrieval operations.
+  SQL databases like MySQL and PostgreSQL are optimized for reading sections of one or a few tables. They use indexing, query optimization techniques, and caching mechanisms to speed up data retrieval operations.
 
   - **Why?** All database types can handle these queries. SQL databases (MySQL, PostgreSQL) are generally efficient for structured data retrieval.
   - **Justification:** These queries involve basic table scans or joins on a limited number of tables. SQL databases are optimized for such operations with efficient indexing mechanisms. SQL databases support SQL queries, which are declarative and allow developers to specify the desired data without worrying about the underlying implementation details. Additionally, SQL databases employ various optimization techniques such as query caching, query plan optimization, and indexing to enhance read performance.
