@@ -16,6 +16,12 @@ In the context of SQL databases, when referring to "underlying implementation de
 
 In summary, SQL databases abstract away many low-level implementation details related to query optimization, indexing, transaction management, storage structures, concurrency control, and caching. Developers can focus on writing declarative SQL queries to specify the desired data operations, relying on the database engine to handle the underlying complexities efficiently.
 
+## Data architecture is crucial 
+
+The way data is organized and stored impacts the performance and scalability of an application. A well-designed data architecture ensures efficient data retrieval and manipulation, as well as scalability and maintainability of the system.
+
+Justification: Proper normalization, indexing, and partitioning of data can optimize query performance and reduce storage requirements. On the other hand, poor data architecture can lead to performance bottlenecks, data inconsistencies, and difficulties in scaling the system.
+
 ## Deep Dive into Database Types and Use Cases
 
 The passage highlights how different database types excel at specific request patterns. Here's a breakdown with technical details, justifications, and including BigQuery:
