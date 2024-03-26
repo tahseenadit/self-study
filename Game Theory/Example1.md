@@ -24,17 +24,11 @@ And for the local coffee shop owner:
 
 Given these payoffs, we can construct a payoff matrix that shows the outcomes for each combination of strategies chosen by the two players.
 
-\[
-\begin{array}{|c|c|c|}
-\hline
- & \text{Defend Big Shop} & \text{Defend Small Shop} \\
-\hline
-\text{Attack Big Shop} & 0,0 & 3,1 \\
-\hline
-\text{Attack Small Shop} & 1,3 & 1,1 \\
-\hline
-\end{array}
-\]
+|            | Defend Big Shop | Defend Small Shop |
+|------------|-----------------|-------------------|
+| Attack Big Shop | 0,0             | 3,1               |
+| Attack Small Shop | 1,3             | 1,1               |
+
 
 Now, let's analyze the situation:
 
