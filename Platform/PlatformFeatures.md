@@ -69,3 +69,7 @@ How does developer develop for your platform in local IDE ?
 **Cloud IDE**
 
 Your platform can provide cloud IDE like bigquery or dbt cloud does. If you have cloud IDE, how does the configuration work ? It is better to have the same logic for setting up configuation in both local development environment and cloud IDE.
+
+# Secret Management
+
+Your platform can provide capability to store and manage keys and secrets, encrypt and dycrypt them as per user need.
