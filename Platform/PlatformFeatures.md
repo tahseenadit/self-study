@@ -59,3 +59,13 @@ If user does not have permission to do specific actions in your platform, then t
 - The platform should allow user to set up a list or dummy account with all additional permissions. When external application is done with it's works, the user should be able to delete that list or dummy account in the platform. That makes things clean and keep extra permissions separated. Because these extra permissions are only needed by that specific external application.
 
 - What if the user gets deleted ? Should the list or dummy account also get deleted ? Do you want your platform to tightly couple the dummy account with the users account ? What if other users need the same dummy account or list ? Do they create their own in that case or just reuse the one already created. If they reuse, then the dummy account also should be authenticated using credentials or token. Then again how this token will be managed and where this token will be stored ?
+
+# Development
+
+**Local Development**
+
+How does developer develop for your platform in local IDE ? 
+
+**Cloud IDE**
+
+Your platform can provide cloud IDE like bigquery or dbt cloud does. If you have cloud IDE, how does the configuration work ? It is better to have the same logic for setting up configuation in both local development environment and cloud IDE.
