@@ -12,6 +12,8 @@ You may develop the following capabilties for/in your platform and the user may 
 - GUI
 - Terraform modules
 
+How does any user can use terraform to deploy resource in your platform ? Do they need any token generated from your platform which will give them the permission to deploy resource using terraform in your platform ? Does your platform has capabillities to assign set of permissions to the token ?
+
 **Interaction**
 
 The user may interact with your services in the following ways:'
