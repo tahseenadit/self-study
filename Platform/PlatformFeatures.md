@@ -26,6 +26,10 @@ The user may interact with your services in the following ways:'
 - Library
 - GUI
 
+**Mapping with External Services**
+
+How does the services in your platform establish communication/relation to other external services ? Are they 1:1, many:1, many:many, 1:many ?
+
 # Users
 
 Your platform can have two types of users:
