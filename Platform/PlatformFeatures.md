@@ -1,5 +1,9 @@
 # Services
 
+How do you expose these services ?
+How your users deploy these services in your platform ?
+How your users interact with your services ?
+
 **Exposure**
 Your platform may have many services. You may offer these services as below:
 
