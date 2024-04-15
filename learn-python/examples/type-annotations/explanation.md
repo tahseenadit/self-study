@@ -8,6 +8,6 @@ In Python .pyi files, the ellipsis (...) is used as a placeholder to indicate th
 
 # Images
 
-!["Function suggestions for different parameter values and return types"](/workspaces/self-study/learn-python/examples/type-annotations/Screenshot 2024-04-15 at 22.28.43.png)
+!["Function suggestions for different parameter values and return types"](learn-python/examples/type-annotations/Screenshot 2024-04-15 at 22.28.43.png)
 !["Function suggestions specific to the returned class A"](learn-python/examples/type-annotations/Screenshot 2024-04-15 at 22.28.43.png)
 !["Function suggestions specific to the returned class B"](learn-python/examples/type-annotations/Screenshot 2024-04-15 at 22.28.56.png)
