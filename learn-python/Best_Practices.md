@@ -338,3 +338,58 @@ While Python classes do introduce some overhead compared to simple functions, it
 - **Profiling:** If performance becomes a concern, use profiling tools to measure the actual overhead of the class structure. This can help you make data-driven decisions.
 
 **In essence, while Python classes introduce a slight overhead, their benefits in terms of code organization, maintainability, and reusability often outweigh this overhead in most practical scenarios. Focus on using classes when they provide a clear advantage in terms of code structure and design.**
+
+# Check python version in setup.py
+
+You can check it using the sys module like below:
+
+```python
+
+import sys
+
+if sys.version_info < (3, 8):
+    print("Error: Solution does not support this version of Python.")
+    print("Please upgrade to Python 3.8 or higher.")
+    sys.exit(1)
+```
+
+# Check if a specific module version is not met
+
+You can check if user's environment has the required version of a module like below in setup.py file:
+
+```python
+
+try:
+    from setuptools import find_namespace_packages
+except ImportError:
+    # the user has a downlevel version of setuptools.
+    print("Error: dbt requires setuptools v40.1.0 or higher.")
+    print('Please upgrade setuptools with "pip install --upgrade setuptools" ' "and try again")
+    sys.exit(1)
+```
+
+# Long Description in setup.py
+
+Do not write long description directly in setup.py file's setup function. Instead, write the description in readme.md file. Then get the description from the readme file like below:
+
+```python
+
+import os
+
+this_directory = os.path.abspath(os.path.dirname(__file__)) # __file__ is the current file which is setup.py
+with open(os.path.join(this_directory, "README.md")) as f: # We assume that README.md is in the same directory as setup.py
+    lont_description = f.read()
+```
+
+Then pass long_description to the parameter of setup function in setup.py file like below:
+
+```python
+
+...
+
+setup(
+    ...
+    long_description=long_description,
+    ...
+)
+```
