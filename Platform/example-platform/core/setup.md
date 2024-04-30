@@ -128,3 +128,46 @@ Notice the first line where it indicates that exampleplatform-script.py was bein
 You can find this entry_points.txt file in your *.egg-info file. Investigate it.
 
 Also, notice the PKG-INFO file. You will see the long description and short description being added there by setuptools.
+
+# pkg_resource
+
+`pkg_resources.iter_entry_points` is a function provided by the `pkg_resources` module in Python's setuptools library. It allows you to iterate over entry points defined in installed Python packages. This function is particularly useful for discovering and dynamically loading functionality provided by packages.
+
+Here's how `pkg_resources.iter_entry_points` works along with examples:
+
+1. **Iterating Over Entry Points:**
+
+   ```python
+   import pkg_resources
+
+   for entry_point in pkg_resources.iter_entry_points(group='console_scripts'):
+       print(entry_point)
+   ```
+
+   This code iterates over all entry points in the `console_scripts` group. For each entry point found, it prints information about the entry point, such as the name, module, and function/class it points to.
+
+2. **Dynamically Loading Entry Points:**
+
+   ```python
+   import pkg_resources
+
+   for entry_point in pkg_resources.iter_entry_points(group='my_group'):
+       plugin = entry_point.load()
+       plugin.execute()
+   ```
+
+   In this example, assuming `my_group` is a group defined in some packages' setup scripts, the code iterates over all entry points in the `my_group` group. For each entry point, it loads the associated module and executes a function or method (`execute()` in this case). This allows you to dynamically discover and execute functionality provided by installed packages.
+
+3. **Finding a Specific Entry Point:**
+
+   ```python
+   import pkg_resources
+
+   entry_point = pkg_resources.get_entry_map('my_package')['my_group']['my_entry_point']
+   plugin = entry_point.load()
+   plugin.execute()
+   ```
+
+   Here, `get_entry_map` retrieves a mapping of all entry points grouped by package and group name. You can then access a specific entry point by package name, group name, and entry point name, and load and execute it as before.
+
+By using `pkg_resources.iter_entry_points`, you can make your Python applications more extensible and modular by allowing them to dynamically discover and utilize functionality provided by third-party packages. This is particularly useful in plugin-based architectures or when building frameworks that support extensions.
