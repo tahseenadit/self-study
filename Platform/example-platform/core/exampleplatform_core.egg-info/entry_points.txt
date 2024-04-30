@@ -1,0 +1,2 @@
+[console_scripts]
+exampleplatform = exampleplatform.cli.main:cli

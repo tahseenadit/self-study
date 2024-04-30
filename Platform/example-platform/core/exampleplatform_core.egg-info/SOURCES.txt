@@ -1,0 +1,7 @@
+README.md
+setup.py
+exampleplatform_core.egg-info/PKG-INFO
+exampleplatform_core.egg-info/SOURCES.txt
+exampleplatform_core.egg-info/dependency_links.txt
+exampleplatform_core.egg-info/entry_points.txt
+exampleplatform_core.egg-info/top_level.txt
