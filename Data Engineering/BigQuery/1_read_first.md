@@ -17,3 +17,5 @@ Most often in blocks in Capacitor format
 ### What system is used by bigquery to process it's data ?
 
 The compute is represented by Borg tasks.
+
+Bigquery is dynamic, which means the query plan can be modified while a query is running. What does it mean ? It means it can improve data distribution throughout query workers. This is a feature of **Dremel** . 
