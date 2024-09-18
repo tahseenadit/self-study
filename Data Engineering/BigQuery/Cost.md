@@ -3,7 +3,7 @@ You need to understand what it means. You actually pay for the volume of data lo
 
 ### What happens if you use `limit` in your query ?
 
-Example: select * from some_table limit 100
+Example: `select * from some_table limit 100`
 
 Bigquery still loads the full table, then processes 100 rows. Because you actually pay for the volume of data loaded in the workers, you are actually charged for the full table, not for the 100 rows. 
 
