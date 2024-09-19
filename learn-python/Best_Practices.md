@@ -393,3 +393,125 @@ setup(
     ...
 )
 ```
+
+____
+# Early binding of generator expressions
+
+**Generator Expressions and Binding**
+
+1. **Basic Idea:**
+   - A generator expression like `sum(x for x in foo())` is a compact way to create a generator.
+   - Generators are special iterators that yield items one at a time and do not compute all items upfront.
+
+2. **Immediate vs. Deferred Evaluation:**
+   - **Immediate Evaluation:** The idea is that the first (outermost) for-expression is evaluated immediately when the generator expression is defined, and the remaining expressions are evaluated when the generator is actually used.
+   - **Deferred Evaluation:** This means that the entire generator expression (including all its components) is evaluated only when it is used (i.e., when you iterate over it).
+
+3. **Reasoning Behind Immediate Evaluation:**
+   - **Consistency with Function Arguments:** Guido van Rossum (Python’s creator) argued that arguments to functions should be evaluated before the function itself is called. So, when you pass a generator expression to `sum()`, the expression for `foo()` should be evaluated first.
+   - **Exception Handling:** If there’s a bug in `foo()` that raises an exception, you would expect this exception to be raised before the `sum()` function starts executing. This aligns with the principle that function arguments are evaluated before the function runs.
+
+4. **Contract of Generators:**
+   - Generators are designed to evaluate expressions lazily. For example, `sum(bar(x) for x in foo())` means `bar(x)` should not be evaluated until `sum()` starts iterating over the generator.
+   - If the generator were to evaluate `bar(x)` immediately, it would go against the lazy evaluation principle of generators.
+
+5. **Binding Issues and Debugging:**
+   - Binding the expressions immediately (early binding) could make debugging and understanding expressions simpler. However, it might introduce complexities and inconsistencies.
+
+6. **Lambda Expressions and Precedents:**
+   - Python's lambdas use late binding, meaning variables are looked up when the lambda is executed, not when it is defined. Introducing early binding for generators could conflict with this established behavior and add unnecessary complexity.
+
+7. **Consensus and Best Practices:**
+   - Given the complexity of binding issues and potential for confusion, Python encourages using generator expressions in contexts where their immediate evaluation is clear and straightforward.
+   - For more complex scenarios, defining a full generator function is preferred as it clearly defines the scope and lifetime of variables and makes the binding behavior more explicit.
+
+In essence, Python decided to keep generator expressions' evaluation behavior consistent with how function arguments are handled (i.e., evaluate arguments first) while adhering to the lazy evaluation principle of generators. This decision balances clarity, consistency, and complexity, ensuring that generator expressions work predictably while encouraging best practices for more complex use cases.
+
+Let's clarify these concepts with examples.
+
+### 1. **Simple Case: Generator Expression with Immediate Evaluation**
+
+In this case, we're using a generator expression in a straightforward context, like passing it directly to a function such as `sum()`.
+
+```python
+foo = [1, 2, 3, 4]
+
+result = sum(x for x in foo)
+print(result)  # Output: 10
+```
+
+Here’s how it works:
+
+- The generator expression `x for x in foo` is passed as an argument to `sum()`.
+- **Immediate Evaluation:** The list `foo` is evaluated right away when `sum()` is called. The outermost expression (`foo`) is evaluated immediately.
+- Then, as `sum()` iterates over the generator, each `x` is produced and summed.
+- This is a clear and straightforward usage: the input `foo` is evaluated upfront, and the generator lazily produces values when the function (`sum()`) iterates over them.
+
+### 2. **More Complex Case: Generator with Delayed Evaluation**
+
+Let's introduce a more complex situation where some operations are deferred until the generator is iterated over:
+
+```python
+foo = [1, 2, 3, 4]
+
+def bar(x):
+    if x == 2:
+        raise ValueError("Error in bar!")
+    return x * 2
+
+gen = (bar(x) for x in foo)
+```
+
+Here’s what happens:
+
+- **Immediate Evaluation:** `foo` is evaluated immediately when the generator `gen` is defined.
+- **Deferred Evaluation:** The function `bar(x)` is **not** called immediately. The generator only calls `bar(x)` when you start iterating over it.
+
+```python
+try:
+    print(sum(gen))  # This will raise a ValueError when it encounters 2
+except ValueError as e:
+    print(e)  # Output: Error in bar!
+```
+
+When we call `sum(gen)`, the generator starts iterating over `foo` and passing each `x` to `bar(x)`. As soon as it encounters `x == 2`, `bar()` raises a `ValueError`, and the iteration halts.
+
+The deferred evaluation of `bar(x)` allows the generator to follow its lazy evaluation principle — `bar()` is only invoked as the values are needed.
+
+### 3. **Best Practice: Use a Full Generator Function for Complex Cases**
+
+When you need more complex logic that might involve more control over evaluation, error handling, or binding of variables, it’s better to define a **full generator function** instead of using a generator expression.
+
+Here’s an example using a generator function:
+
+```python
+foo = [1, 2, 3, 4]
+
+def my_generator():
+    for x in foo:
+        yield bar(x)
+
+gen = my_generator()
+```
+
+In this case, instead of using a generator expression, we define a proper generator function `my_generator()`. It uses `yield` to produce values lazily, just like a generator expression, but it provides more explicit control over the logic.
+
+```python
+try:
+    print(sum(gen))  # Again, this will raise a ValueError when it encounters 2
+except ValueError as e:
+    print(e)  # Output: Error in bar!
+```
+
+**Why is this better for complex cases?**
+
+- **Clarity:** The scope of variables is more explicit, and the generator function shows exactly when and where things happen.
+- **Error Handling:** You have more control over how exceptions are handled within the generator function itself.
+- **Flexibility:** If you need to add more complex logic (e.g., handling multiple conditions or changing variables), a full generator function provides more structure.
+
+### Conclusion
+
+- **Use generator expressions** for simple and straightforward use cases where the immediate evaluation (of outer variables) and lazy iteration (over the inner part) are clear and expected.
+- **For more complex cases** (e.g., where you need fine-grained control over variable binding, scope, or error handling), a full generator function is preferred because it makes the evaluation order, scope, and logic more explicit.
+
+This approach reduces potential confusion and follows Python’s philosophy of making things clear and obvious.
