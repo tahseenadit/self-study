@@ -33,3 +33,5 @@ ____
 
 ### Federated Queries
 BigQuery needs to wait for the source database to execute the external query and temporarily move resulted data from the external data source to BigQuery. The cost depends on the size of the data temporarily moved from source database to bigquery.
+- If you are using the on-demand pricing model, you are charged for the number of bytes returned from the external query when executing federated queries from BigQuery. More data means more bytes returned.
+- If you are using BigQuery editions, you are charged based on the number of slots you use. More data means more slots (memory, compute, I/O) reserved in bigquery.
