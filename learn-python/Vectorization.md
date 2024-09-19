@@ -74,7 +74,11 @@ for i in range(len(a)):
     result.append(a[i] + b[i])
 ```
 In this code, the loop processes one element at a time, making it **slow** for large arrays. Each addition happens sequentially, and Python’s overhead for each operation adds further delay.
+This code manually iterates over the elements of a and b using a Python for loop. Each time it performs an addition, it incurs the overhead of Python’s interpreted execution and runtime type checking. Python, while being an easy-to-use and highly expressive language, is interpreted and dynamically typed. This makes it slower for certain operations, especially loops that repeatedly operate on large datasets (like adding two large arrays element-wise). Each iteration in Python has overhead due to:
 
+- Interpreting Python bytecode.
+- Dynamic type checking: Python needs to check types at runtime, which adds further overhead.
+- Function calls: Python’s function calls have overhead, as each invocation has to go through Python’s object and type system.
 #### Example of Vectorization:
 ```python
 # Vectorized approach (NumPy)
