@@ -28,3 +28,8 @@ Somewhere it is stated that as of december 2021, select * from Limit, will not s
   ```
 
 - **Wildcard tables (like Sharding - splitting the data into multiple tables)**: This works when your data holds information about different domains (geographical, customer type, etc.) or sources. Instead of having one big table, you can create 'subtables' or 'shards' like this with a similar schema (usually people use the same). For instance, `dateset.tablename.eur` for european data and `dataset.tablename.jap` for data from Japan. You can query one of those tables directly select col1,col2... from dataset.tablename.custromer_eur;  or from all tables select col1,col2 from 'dataset.tablename.*'.  Wildcard tables can be also partitioned by date.
+
+____
+
+### Federated Queries
+BigQuery needs to wait for the source database to execute the external query and temporarily move resulted data from the external data source to BigQuery. The cost depends on the size of the data temporarily moved from source database to bigquery.
