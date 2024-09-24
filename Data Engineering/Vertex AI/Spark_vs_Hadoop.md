@@ -135,3 +135,27 @@ When we say that **Apache Spark** supports much more than just the basic **MapRe
 - **Unified Engine**: With Spark, all of these diverse tasks can be performed in a unified, integrated environment, meaning the same set of resources (cluster, nodes, etc.) can handle everything from **ETL (Extract, Transform, Load)** processes to **complex data science pipelines**.
   
 - **Performance**: Since Spark processes data in **memory**, it’s significantly faster for iterative tasks like training ML models or graph traversals, where data needs to be accessed multiple times.
+
+Let's summarize the pros and cons of Apache Spark: 
+
+**Pros**
+
+- Spark is easy to program and don’t require much hand coding, whereas MapReduce is not that easy in terms of programming and requires lots of hand coding.
+- Apache Spark processes the data in memory while Hadoop MapReduce persists back to the disk after map or reduce action. But Spark needs a lot of memory.
+- Spark is general purpose cluster computation engine with support for streaming, machine learning, batch processing as well as interactive mode whereas Hadoop MapReduce supports only batch processing.
+- Spark executes batch processing jobs about 10 to 100 times faster than Hadoop MapReduce.
+- Spark uses a variety of abstraction such as RDD, DataFrame, Streaming, GraphX which makes Spark feature rich whereas MapReduce doesn’t have any abstraction.
+- Spark use lower latency by caching partial/complete results across distributed nodes whereas MapReduce is completely disk-based.
+
+**Cons**
+
+- No Support for Real-time Processing
+- Problem with Small File
+- No File Management System
+- Expensive
+- Less number of Algorithms
+- Manual Optimization
+- Iterative Processing
+- Latency
+- Window Criteria
+- Back Pressure Handling
