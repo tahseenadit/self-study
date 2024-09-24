@@ -1,3 +1,5 @@
+The Apache Hadoop software library is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models. It is designed to scale up from single servers to thousands of machines, each offering local computation and storage.
+
 The key difference between **Apache Spark** and **Hadoop** lies in how they handle data processing, particularly with respect to **RAM** (in-memory) and **local memory/disk** (persistent storage).
 
 ### 1. **Apache Spark (In-Memory Computing System)**:
