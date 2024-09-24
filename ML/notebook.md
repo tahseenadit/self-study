@@ -1,4 +1,12 @@
-### 4. **Challenges with Collaboration and Error Checking**
+**Cons:**
+
+- In-memory variables can be overwritten
+- Python lack of type safety + Jupyter’s arbitrary execution can make long notebooks a nightmare to handle. Problem may also exist with other languages
+- Notebooks cannot be used as a programming asset - functions written in a notebook cannot be invoked using import statements
+- Tool support for notebook files (such as ipynb) can vary - Gitlab provides decent support but Bitbucket, for instance, doesn’t even parse the JSON.
+- Kernel death/restart does occur with the backend - although this is not a Jupyter level issue always
+
+### **Challenges with Collaboration and Error Checking**
 Jupyter Notebook, while great for solo use, can be tricky for **collaboration**:
 - Unlike traditional **version control** systems (like GitHub for scripts), Jupyter mixes code with outputs (such as images), making it harder to track changes in the code.
 - It doesn’t have strong features for **real-time collaboration** or **error checking**. If someone makes changes in their own version of the notebook, merging those changes back into your notebook can be messy.
