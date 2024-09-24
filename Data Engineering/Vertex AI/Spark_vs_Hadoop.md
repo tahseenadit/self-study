@@ -212,3 +212,8 @@ Let's break down each of these **cons** of Apache Spark and explain them with ex
   
 - **Example**: Suppose you’re using Spark Streaming to process clickstream data from a website. If the traffic spikes dramatically (e.g., during a sale), Spark Streaming might not be able to process all the incoming events in real time. It may lag behind, causing delays or even losing data, unless carefully tuned.
 
+When do you use Apache Spark instead of a basic Jupyter Notebook with SQL and Python?
+
+Simply, when you have more data than will fit in your computer's memory. Spark gives you an abstraction where data is spread across multiple machines but you interact with it as if it's in a single place (sort of, advanced usage around partitions means you need to care about how it's laid out). Apache Spark is required for larger dataset. So if your query is taking long time, even after optimization and adding shards on your sql is getting expensive, you should look for spark and setup a cluster over cloud and verify the query speed.
+
+Spark can also be more efficient. The process of building up a chain of transforms before execution allows for query optimization which can make a huge difference to performance.
