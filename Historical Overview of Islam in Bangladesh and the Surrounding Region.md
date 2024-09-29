@@ -90,4 +90,6 @@ Mir Jafar’s betrayal led to Siraj-ud-Daulah’s capture and execution. His bod
 
 Mir Jafar’s rule was short-lived and filled with regret. He quickly realized that the British had no intention of granting him real power. Betrayed by his own greed, he died a miserable and despised figure, his legacy forever tarnished as a traitor to his people. His story is immortalized in the poetry of Allama Iqbal, who poignantly captures the consequences of such betrayal.
 
+The Battle of Plassey marked the beginning of British political control in Bengal and, eventually, the entire Indian subcontinent. It was a turning point that shifted the balance of power, paving the way for nearly two centuries of British colonial rule. The betrayal of Mir Jafar and the fall of Siraj-ud-Daulah are seen as pivotal moments that changed the course of history for Bengal and India as a whole.
+
 ----
