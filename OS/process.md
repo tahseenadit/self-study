@@ -1,3 +1,132 @@
+You can use various tools to check which Python processes are running and whether your `main.py` or FastAPI server is active. Here are some common ways to do that:
+
+### 1. **Using the `ps` Command (Linux/macOS)**
+
+You can use the `ps` command in combination with `grep` to filter Python processes. Open your terminal and run:
+```bash
+ps aux | grep python
+```
+Explanation:
+- `ps aux` lists all the running processes.
+- `grep python` filters to show only those processes related to Python.
+
+This will display a list of all Python processes currently running, including information like the process ID (PID), CPU usage, and the command used to start them. You should see entries for both your `main.py` and FastAPI server.
+
+To narrow it down further, you can search specifically for your script or FastAPI server:
+```bash
+ps aux | grep main.py
+ps aux | grep uvicorn
+```
+
+### 2. **Using `pgrep`**
+
+`pgrep` is a more convenient command to directly find processes by name:
+```bash
+pgrep -fl python
+```
+Explanation:
+- `-f` searches for the full command line of each process.
+- `-l` shows the name of the process.
+
+This will list all Python-related processes, including your `main.py` and FastAPI server, with their respective PIDs.
+
+### 3. **Using `top` or `htop`**
+
+You can use tools like `top` or `htop` to get a dynamic view of running processes:
+- **top**: In the terminal, type `top` and press `Enter`. To filter by Python processes, press `/` and type `python`.
+- **htop** (if installed): Type `htop` and press `Enter`. Then, you can easily search by pressing `/` and entering `python`.
+
+`htop` is more user-friendly and provides a color-coded view of CPU and memory usage. You can see all active processes and easily identify those related to Python.
+
+### 4. **Using Windows Task Manager or Command Prompt (Windows)**
+
+If you're using Windows, you can check running Python processes in two ways:
+
+- **Task Manager**: Open the Task Manager (Ctrl + Shift + Esc), go to the "Details" tab, and look for `python.exe` entries. These will include both your `main.py` and FastAPI server if they are running.
+  
+- **Command Prompt**: Run the following command in the command prompt:
+  ```cmd
+  tasklist /fi "imagename eq python.exe"
+  ```
+  This will list all Python processes currently running on your machine.
+
+### 5. **Using Python's `psutil` Library**
+
+If you want to do it programmatically from within Python, you can use the `psutil` library. First, install it:
+```bash
+pip install psutil
+```
+
+Then, you can use the following code snippet to list all Python processes:
+```python
+import psutil
+
+for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+    if 'python' in proc.info['name']:
+        print(proc.info)
+```
+
+This code will output detailed information about each Python process running on your system, including its PID, name, and command line arguments.
+
+### Summary
+
+- **Linux/macOS**: Use `ps aux | grep python` or `pgrep -fl python`.
+- **Windows**: Use Task Manager or `tasklist /fi "imagename eq python.exe"`.
+- **All systems**: Use `top` or `htop` for real-time monitoring.
+- **Python script**: Use the `psutil` library for programmatic checking.
+
+To use tools like `top`, `ps aux | grep python`, or `psutil`, you typically open a **new terminal window or tab** while your Python program is running in a separate terminal. This way, you can monitor the active processes without interrupting your main script or FastAPI server.
+
+### Step-by-Step Guide
+
+1. **Open a Terminal for Your Program**:
+   - Start by opening one terminal window and run your main Python program that starts the FastAPI server, e.g.:
+     ```bash
+     python main.py
+     ```
+
+2. **Open Another Terminal for Monitoring**:
+   - Open a **new terminal window or tab** to check the active processes. This allows you to keep your main program running without interference.
+   - Now you can use the following commands to monitor your processes:
+
+   **Option 1: Using `ps aux | grep python`**
+   ```bash
+   ps aux | grep python
+   ```
+   This will show all running Python processes, including your `main.py` and FastAPI server if they are active.
+
+   **Option 2: Using `top`**
+   - In the terminal, type:
+     ```bash
+     top
+     ```
+   - Press `/` and then type `python` to filter the processes and only show those related to Python.
+   - This will update in real-time and show you the resource usage of your Python processes.
+
+   **Option 3: Using `htop` (if installed)**
+   - If you have `htop` installed, type:
+     ```bash
+     htop
+     ```
+   - Then, press `/` and enter `python` to filter for Python processes.
+
+3. **Using `psutil` Programmatically (Python Code)**
+   - Open a new terminal and run a Python script using the code below to see the list of running Python processes:
+     ```python
+     import psutil
+
+     for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+         if 'python' in proc.info['name']:
+             print(proc.info)
+     ```
+   - This script will output details of all running Python processes without affecting your main program.
+
+### Why Open a New Terminal?
+
+Opening a new terminal ensures that you don't interrupt the execution of your `main.py` file or FastAPI server. Monitoring tools like `top`, `htop`, and commands like `ps` do not interfere with the running processes—they only provide a view of the system's state.
+
+So, yes, always use a separate terminal window or tab to run these monitoring commands while your main program runs in its own terminal.
+
 The `ps aux` command lists all running processes on the system, but it doesn't directly indicate which process is the current **foreground process**. However, there are a few ways to identify the foreground process using other commands or terminal information.
 
 ### Methods to Find the Foreground Process
