@@ -73,3 +73,30 @@ Another option would be to launch your API in command line:
 uvicorn main:app --host=0.0.0.0 --port=8000 --log-level=debug --limit-max-requests=1 --limit-concurrency=1
 ```
 
+# Problem: calling api endpoints from postman using 0.0.0.0
+
+### Understanding `0.0.0.0`
+
+1. **Binding to All Interfaces**:
+   - When you run a server (like Uvicorn) and specify `0.0.0.0` as the bind address, it means that the server will listen for incoming connections on **all available network interfaces** on that machine. This includes:
+     - The loopback interface (localhost, 127.0.0.1)
+     - Any local area network (LAN) interfaces
+     - Any other network interfaces that may be configured on the server (like Wi-Fi, Ethernet, etc.)
+
+2. **Network Routing**:
+   - While `0.0.0.0` allows the server to accept connections from any IP address within the server itself, it does **not** function as a valid address for accessing the server from another machine. 
+   - To connect to the server from another machine (like the one where you're running Postman), you need to use the **actual IP address** assigned to the server's network interface that is reachable over the network.
+
+### Example Scenario
+
+- **Server Configuration**:
+  - Suppose your server has two network interfaces: one with IP `192.168.1.10` (LAN) and one with IP `10.0.0.5` (another network).
+  - Running Uvicorn with `0.0.0.0` means it will listen for requests on both interfaces (`192.168.1.10` and `10.0.0.5`), as well as on `127.0.0.1`.
+
+- **Client Connection**:
+  - If you want to test the API from another machine (running Postman), you would use `192.168.1.10` or `10.0.0.5` in Postman, depending on which network the client is on.
+  - Using `127.0.0.1` or `0.0.0.0` on the postman machine would not work because those addresses refer to the local loopback interface of the server machine.
+
+### Summary
+- **`0.0.0.0`**: Binds the server to listen on all network interfaces on the server machine.
+- **Accessing the Server**: To connect from a client (like Postman), use the server's actual IP address on the network, not `0.0.0.0` or `127.0.0.1`.
