@@ -100,3 +100,39 @@ uvicorn main:app --host=0.0.0.0 --port=8000 --log-level=debug --limit-max-reques
 ### Summary
 - **`0.0.0.0`**: Binds the server to listen on all network interfaces on the server machine.
 - **Accessing the Server**: To connect from a client (like Postman), use the server's actual IP address on the network, not `0.0.0.0` or `127.0.0.1`.
+
+# Problem: Connectoin issue
+
+1. **EHOSTUNREACH Error**:
+   - The error message `EHOSTUNREACH` indicates that the host (in this case, `192.168.2.84` on port `8000`) is unreachable. This typically means that the network request cannot be completed because:
+     - The IP address is not reachable from the client machine.
+     - There might be firewall rules blocking the connection.
+     - The server is not running or listening on that address.
+
+2. **No Output in the Backend's Console**:
+   - This means that when you tried to make the request, the server (Uvicorn) did not log any incoming request, which suggests that it did not receive the request at all.
+
+3. **Verifying Firewall Settings**:
+   - **Firewall**: A firewall is a security system that controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between a trusted internal network and untrusted external networks (like the internet).
+   - **Check if the Firewall is Open for the Port**: You should ensure that the port your server is listening on (port `8000` in this case) is allowed through the firewall. This can usually be done by checking the firewall settings on the backend machine:
+     - On Linux, you might use `iptables` or `ufw` to check rules.
+     - On Windows, you would check the Windows Firewall settings.
+   - **Including This Information**: When asking for help, it’s important to mention whether the firewall is configured correctly, as this is a common source of connectivity issues.
+
+4. **Using Curl and Browser to Verify**:
+   - **Curl**: `curl` is a command-line tool used to make HTTP requests. It can help you check if the server is reachable and responding without needing a GUI tool like Postman.
+     - You can run a command like `curl http://192.168.2.84:8000` in your terminal to see if you get a response.
+   - **Browser**: You can also paste `http://192.168.2.84:8000` into your web browser’s address bar to check if the server is reachable.
+   - **Purpose**: This helps rule out whether the issue is specific to Postman or if it’s a broader connectivity issue.
+
+5. **Understanding the Setup**:
+   - **Physically Different Machines vs. VMs**:
+     - **Physically Different Machines**: This means that the machines (one running the backend server and one running Postman) are separate, distinct hardware devices.
+     - **VMs (Virtual Machines)**: If both the server and client are running on virtual machines, they could be using network configurations such as NAT (Network Address Translation). NAT allows multiple devices on a local network to share a single public IP address. This can introduce additional network configuration considerations.
+   - **Same Subnet**: A subnet is a segmented piece of a larger network. If the backend machine (server) and the client machine (running Postman) are on the same subnet, they can communicate directly without needing a router. If they are on different subnets, there may be additional routing or firewall configurations required for them to communicate.
+
+### Summary
+- The error `EHOSTUNREACH` indicates that the server at `192.168.2.84:8000` is not reachable from the client. 
+- Check the firewall settings to ensure that port `8000` is open.
+- Test connectivity using `curl` or a web browser to confirm that the issue isn't with Postman specifically.
+- Clarify your network setup: are you using physical machines or virtual machines? Are they on the same subnet? This information can help diagnose the issue further.
