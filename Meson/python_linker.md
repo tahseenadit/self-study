@@ -1,3 +1,5 @@
+If you encounter "undefined symbols" when building, make sure you link against the correct version of the Python library that matches your environment (x86_64). This typically involves ensuring the correct -L and -l flags are set during linking.
+
 Problem:
 
 ```
