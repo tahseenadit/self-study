@@ -121,7 +121,7 @@ while (1) {
 ```
 
 - **`while (1)`**: Infinite loop to traverse the tree until a leaf node is reached.
-- **`PyArray_GETPTR1(...)`**: This retrieves a pointer to the specific element of the NumPy array for the given node index. The dereference converts it to the appropriate type (int for child indices and float for thresholds).
+- **`PyArray_GETPTR1(...)`**: This retrieves a pointer to the specific element of the NumPy array for the given node index. The dereference converts it to the appropriate type (int for child indices and float for thresholds). In Python, you would access this data with node.left_child, node.right_child, node.feature, and node.threshold. The C equivalent requires using PyArray_GETPTR1, which gets a pointer to a specific element in the NumPy array based on the node_index.
 
 ### Leaf Node Check
 
