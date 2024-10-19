@@ -1,3 +1,5 @@
+If you encounter "undefined symbols" when building, make sure you link against the correct version of the Python library that matches your environment (x86_64). This typically involves ensuring the correct -L and -l flags are set during linking.
+
 Suppose you have created a python virtual environmnet using: `python -m venv .venv` And then you have activated it using: `source .venv\bin\activate` . So now you are inside the virtual environment.
 
 But you can see if the python in your virtual environment is just a symlink that is pointing to another python in your system:
