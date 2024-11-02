@@ -1,3 +1,4 @@
+```
 root-folder/
 ├── src/
 │   ├── core/
@@ -28,3 +29,4 @@ root-folder/
 │   └── extension.ts
 ├── package.json
 └── otherconfig.json
+```
