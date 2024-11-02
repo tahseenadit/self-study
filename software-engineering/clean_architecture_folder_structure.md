@@ -30,3 +30,9 @@ root-folder/
 ├── package.json
 └── otherconfig.json
 ```
+This structure provides several benefits:
+- Clear separation of concerns
+- Domain logic is isolated from infrastructure details
+- Easy to test (you can mock the repositories and services)
+- Easy to extend with new features
+- Easy to change implementation details without affecting business logic
