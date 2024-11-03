@@ -245,3 +245,23 @@ Let's go through each of the lines from your output:
 3. **Restart the FastAPI Server if Necessary**: If you don't see the FastAPI process, you might need to restart it and check the process list again.
 
 This should help you confirm whether the FastAPI server is running or not. Let me know if you need more assistance!
+
+### Same file opened in multiple processes:
+
+Let's assume we have the same file opened in VSCode and Cursor. The behavior is not related to the processes of VSCode and Cursor, but rather to how both editors are watching the same file on your filesystem.
+
+When we have the same file opened in both VSCode and Cursor:
+1. Both editors are separate processes
+2. Both editors implement file watchers that monitor changes to files in their workspace
+3. When we modify the file in one editor, the change is saved to the filesystem
+4. The other editor's file watcher detects the change and updates its view accordingly
+
+This is similar to how if we opened the same text file in Notepad and WordPad - they're different processes, but they're both looking at the same file on disk. When one saves changes, the other will detect the file modification and usually prompt us to reload or automatically reload the file.
+
+In technical terms:
+- Each editor (VSCode and Cursor) runs as its own separate process
+- They both use file system watchers (like `fs.watch` in Node.js or similar APIs) to monitor file changes
+- The editors are not directly linked to each other, they're just both watching the same file
+- The filesystem acts as the shared resource that both processes monitor
+
+This is why we see the updates propagate between editors - it's not because they're the same process or linked processes, but because they're both watching and responding to changes in the same file on disk.
