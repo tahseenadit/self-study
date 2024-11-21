@@ -8,6 +8,137 @@ So, there should be a process running in a machine (server) for the kernel. Then
 
 There should be cost for keep the server machine running and the client machine running. Also there should cost for storing the notebook files in the client machine or in the cloud.
 
+One can connect multiple clients to a single kernel.
+
+```
+%connect_info
+{
+ "shell_port": 58645,
+ "iopub_port": 47422,
+ "stdin_port": 60550,
+ "control_port": 39092,
+ "hb_port": 49409,
+ "ip": "127.0.0.1",
+ "key": "2298f955-7020b0ce534e7a8d81053d43",
+ "transport": "tcp",
+ "signature_scheme": "hmac-sha256",
+ "kernel_name": ""
+}
+
+Paste the above JSON into a file, and connect with:
+ $> jupyter <app> --existing <file>
+or, if you are local, you can connect with just:
+ $> jupyter <app> --existing kernel-4342f625-a8...
+or even just:
+ $> jupyter <app> --existing
+if this is the most recent Jupyter kernel you have started.
+
+```
+
+To connect to the Jupyter Notebook kernel using the information provided in the file above, follow these steps:
+
+### 1. **Save the JSON information to a file**
+   - Copy the JSON block (everything between `{` and `}`) and save it as a file. For example:
+     - Save it as `kernel-connection.json` on your local machine.
+
+### **2. `jupyter <app>`: What does this mean?**
+This part is telling you that you can use different Jupyter applications to connect to the kernel described in the JSON file. Depending on what interface you want to use, you replace `<app>` with one of the following options:
+
+- **`jupyter notebook`**: 
+  Opens the classic Jupyter Notebook interface in your web browser.
+  ```bash
+  jupyter notebook --existing kernel-connection.json
+  ```
+
+- **`jupyter lab`**: 
+  Opens JupyterLab, a more modern and flexible interface for working with notebooks, terminals, and more.
+  ```bash
+  jupyter lab --existing kernel-connection.json
+  ```
+
+- **`jupyter qtconsole`**: 
+  Opens a standalone console application with a GUI (graphical interface) for executing code interactively.
+  ```bash
+  jupyter qtconsole --existing kernel-connection.json
+  ```
+
+- **`jupyter console`**:
+  Connects to the kernel in a terminal (command-line interface). This is a text-only option for running commands.
+  ```bash
+  jupyter console --existing kernel-connection.json
+  ```
+
+**How to Use:**
+- Copy the JSON information into a file (e.g., `kernel-connection.json`).
+- Use the corresponding command in your terminal to connect to the kernel using your preferred interface.
+
+### **3. Kernel File Validity: What does this mean?**
+The `.json` file by itself doesn't *keep the kernel alive*. It is merely a connection file that tells another program how to connect to a running Jupyter kernel. The actual **kernel** is a separate process running on your computer.
+
+To keep the kernel alive, you must ensure that the **Jupyter kernel process** (the program that executes your code) continues to run. Here’s how you can do that:
+
+---
+
+### **Steps to Keep the Kernel Alive**
+1. **Launch the Kernel in the Background**
+   The JSON file was created by an existing Jupyter kernel process. To keep the kernel alive:
+   - Do not close the terminal or program that started the Jupyter kernel.
+   - If you launched the kernel through a Jupyter Notebook or Lab session, don’t close that session.
+
+2. **Do Not Shut Down the Kernel Manually**
+   Avoid actions like:
+   - Stopping the notebook in the Jupyter interface (`Kernel > Shutdown`).
+   - Killing the terminal where the kernel was started.
+   - Restarting your computer.
+
+3. **Use the Same Connection File**
+   As long as the kernel process continues to run, the connection info in the `.json` file remains valid, and you can use it to connect from any other program (e.g., Jupyter Notebook, Lab, Console, or even remote clients).
+
+4. **Monitor the Kernel**
+   If you're unsure if the kernel is still running:
+   - Use the `jupyter kernelspec list` command to see running kernels.
+   - Check your system's task manager for processes related to Python or Jupyter.
+
+---
+
+### **If the Kernel Dies or You Close the Terminal**
+If the kernel shuts down (intentionally or by accident), the `.json` file will no longer work. You'll need to:
+1. Restart a new kernel.
+2. Generate a fresh `.json` connection file.
+
+To do this:
+   - Start a new Jupyter Notebook, Lab, or Console session.
+   - Locate the new connection file for the running kernel in the Jupyter runtime directory. Typically, the file is saved in:
+     ```
+     ~/.local/share/jupyter/runtime/
+     ```
+
+---
+
+### **Practical Example**
+Suppose you’re working on a Jupyter Notebook and you export the connection info to a JSON file. Here’s how you can keep the kernel alive:
+1. Open the notebook from a terminal:
+   ```bash
+   jupyter notebook
+   ```
+2. Copy the kernel's connection info (`%connect_info`) into the JSON file.
+3. Don’t close the terminal where the notebook is running. Keep it open even after saving the JSON file.
+4. Use the JSON file to connect another interface (e.g., `jupyter lab --existing`).
+
+---
+
+### **How to Avoid Connection Issues**
+- **Keep the kernel alive:** Don’t close the notebook or shutdown the kernel while you're working.
+- **Re-export the connection file:** If the kernel shuts down and you restart it, you'll get a new connection file that you can use.
+
+
+### 3. **Ensure the IP and Key Match**
+   - Ensure that the IP (`127.0.0.1`), the ports (`58645`, `47422`, etc.), and the kernel key (`2298f955-7020b0ce534e7a8d81053d43`) match exactly when connecting.
+
+### Notes:
+   - **`jupyter <app>`**: Replace `<app>` with `notebook`, `qtconsole`, or `lab` if you want to use different interfaces.
+   - **Kernel File Validity**: The JSON connection file remains valid only as long as the original kernel process is running. If the kernel shuts down, the connection will fail.
+
 **Cons:**
 
 - In-memory variables can be overwritten
