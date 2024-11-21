@@ -4,7 +4,9 @@ Jupyter notebooks are represented as JavaScript Object Notation (JSON) documents
 
 Jupyter implements a two-process model, with a kernel and a client. The client can be a Qt widget if we run the Qt console, or a browser if we run the Jupyter Notebook. The client is the interface offering the user the ability to send code to the kernel. In the Jupyter Notebook, the kernel receives entire cells at once, so it has no notion of a notebook. There is a strong decoupling between the linear document containing the notebook, and the underlying kernel. The kernel executes the code and returns the result to the client for display. In the Read-Evaluate-Print Loop (REPL) terminology, the kernel implements the Evaluate, whereas the client implements the Read and the Print of the process. 
 
+So, there should be a process running in a machine (server) for the kernel. Then there should be another process (i.e browser) running in the client machine for the client. All communication procedures between the different processes are implemented on top of the ZeroMQ (or ZMQ) messaging protocol (http://zeromq.org). The Notebook communicates with the underlying kernel using WebSocket, a TCP-based protocol implemented in modern web browsers.
 
+There should be cost for keep the server machine running and the client machine running. Also there should cost for storing the notebook files in the client machine or in the cloud.
 
 **Cons:**
 
