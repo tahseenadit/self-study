@@ -2,7 +2,17 @@
 
 Jupyter notebooks are represented as JavaScript Object Notation (JSON) documents. JSON is a language-independent, text-based file format for representing structured documents. As such, notebooks can be processed by any programming language, and they can be converted to other formats such as Markdown, HTML, LaTeX/PDF, and others.
 
-Jupyter implements a two-process model, with a kernel and a client. The client can be a Qt widget if we run the Qt console, or a browser if we run the Jupyter Notebook. The client is the interface offering the user the ability to send code to the kernel. In the Jupyter Notebook, the kernel receives entire cells at once, so it has no notion of a notebook. There is a strong decoupling between the linear document containing the notebook, and the underlying kernel. The kernel executes the code and returns the result to the client for display. In the Read-Evaluate-Print Loop (REPL) terminology, the kernel implements the Evaluate, whereas the client implements the Read and the Print of the process. 
+Jupyter implements a two-process model, with a kernel and a client. The client can be a Qt widget if we run the Qt console, or a browser if we run the Jupyter Notebook. The client is the interface offering the user the ability to send code to the kernel. In the Jupyter Notebook, the kernel receives entire cells at once, so it has no notion of a notebook. There is a strong decoupling between the linear document containing the notebook, and the underlying kernel. The kernel executes the code and returns the result to the client for display. In the Read-Evaluate-Print Loop (REPL) terminology, the kernel implements the Evaluate, whereas the client implements the Read and the Print of the process. We have already mentioned some of the kernel functions briefly, but now let’s outline them all:
+
+- code execution and resulting output/error propagation. This includes code that normally prompts users to type something in shell’s stdin (like Python’s input() function)
+- code completion at a given cursor position
+- code inspection
+- code debugging
+- kernel interruption on long code executions
+- execution history retrieval
+- some more functions around kernel’s information
+
+While this is a complete set of kernel actions, in reality, some kernels may not support all of the functionality. For example, the R kernel is lacking support for the kernel interruption and some other things.
 
 So, there should be a process running in a machine (server) for the kernel. Then there should be another process (i.e browser) running in the client machine for the client. All communication procedures between the different processes are implemented on top of the ZeroMQ (or ZMQ) messaging protocol (http://zeromq.org). The Notebook communicates with the underlying kernel using WebSocket, a TCP-based protocol implemented in modern web browsers.
 
