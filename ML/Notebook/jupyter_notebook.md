@@ -1,3 +1,9 @@
+# Why notebooks can be processed by any programming language ?
+
+Jupyter notebooks are represented as JavaScript Object Notation (JSON) documents. JSON is a language-independent, text-based file format for representing structured documents. As such, notebooks can be processed by any programming language, and they can be converted to other formats such as Markdown, HTML, LaTeX/PDF, and others.
+
+Jupyter implements a two-process model, with a kernel and a client. The client can be a Qt widget if we run the Qt console, or a browser if we run the Jupyter Notebook. The client is the interface offering the user the ability to send code to the kernel. The kernel executes the code and returns the result to the client for display. In the Read-Evaluate-Print Loop (REPL) terminology, the kernel implements the Evaluate, whereas the client implements the Read and the Print of the process.
+
 **Cons:**
 
 - In-memory variables can be overwritten
