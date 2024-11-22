@@ -18,6 +18,109 @@ So, there should be a process running in a machine (server) for the kernel. Then
 
 There should be cost for keep the server machine running and the client machine running. Also there should cost for storing the notebook files in the client machine or in the cloud.
 
+---
+
+# What happens when you start jupyter notebook
+
+The **Jupyter kernel** is started when the front-end application (e.g., Jupyter Notebook, JupyterLab, or another client) sends a request to launch it. Here’s a more detailed breakdown of **when** and **how** the kernel starts:
+
+---
+
+### **1. When Does the Kernel Start?**
+
+#### **A. When You Open a Notebook**
+The kernel is started when:
+1. You open an existing notebook file (`.ipynb`), OR
+2. You create a new notebook in Jupyter Notebook or JupyterLab.
+
+When this happens, the front-end (Jupyter server running in the background) spawns a kernel process corresponding to the notebook's selected programming language (e.g., Python, R, Julia). Each notebook is associated with one kernel.
+
+#### **B. When You Explicitly Start or Restart It**
+You might also manually start or restart the kernel in these cases:
+1. **Restart Kernel**: If the kernel crashes or becomes unresponsive, you can restart it using the interface (e.g., "Restart Kernel" button).
+2. **Restart and Run All**: You restart the kernel and re-run all cells in a notebook.
+
+#### **C. When Another Front-End Requests a Kernel**
+Other front-end interfaces (e.g., a REPL-like client using Jupyter protocol) can also start kernels independently.
+
+---
+
+### **2. How is the Kernel Started?**
+
+When the kernel starts, it involves several coordinated steps:
+
+#### **Step 1: User Action in the Front-End**
+When you open or create a notebook in Jupyter, the front-end (Notebook or Lab UI) sends an HTTP request to the Jupyter server running in the background. This request specifies:
+- The kernel language (e.g., Python 3).
+- The path of the notebook.
+
+Example:
+```http
+POST /api/sessions
+{
+  "kernel": { "name": "python3" },
+  "notebook": { "path": "Untitled.ipynb" }
+}
+```
+
+#### **Step 2: Jupyter Server Launches the Kernel**
+The Jupyter server (typically running locally as `jupyter-notebook` or `jupyter-lab`) does the following:
+1. Locates the appropriate kernel using the **kernelspec** file.
+   - This is a JSON file that specifies the language and executable to run (e.g., `python -m ipykernel_launcher` for Python).
+   - Kernelspecs are stored in directories like `/usr/local/share/jupyter/kernels/python3/`.
+   
+2. Starts the kernel process using the specified command. For Python, this often looks like:
+   ```bash
+   /usr/bin/python3 -m ipykernel_launcher -f /path/to/connection_file.json
+   ```
+
+3. Generates a **connection file** for the kernel, specifying:
+   - The five TCP ports for communication (described earlier).
+   - A unique token or HMAC key for security.
+
+The server sends this connection information to the front-end.
+
+#### **Step 3: Kernel Process Binds to Ports**
+The kernel process starts, binds to the five ZeroMQ ports (one for each communication channel), and begins listening for messages.
+
+#### **Step 4: Front-End Connects to Kernel**
+The front-end (e.g., the notebook interface) connects to the kernel using the connection information (from the JSON file) and starts sending/receiving messages.
+
+---
+
+### **3. Example Workflow**
+
+Let’s say you start a notebook named `example.ipynb` with Python 3 as the kernel:
+
+1. **User Action**: You open the notebook `example.ipynb`.
+2. **Request Sent**: The Jupyter front-end sends a request to the Jupyter server to start a `python3` kernel.
+3. **Kernel Launched**:
+   - The Jupyter server finds the `kernelspec` for `python3`.
+   - It runs the command:  
+     ```bash
+     /usr/bin/python3 -m ipykernel_launcher -f /path/to/connection_file.json
+     ```
+   - A kernel process is started, listening on five ports.
+4. **Connection Established**: The front-end connects to the kernel and sends an `execute_request` message when you run the first cell.
+
+---
+
+### **4. Practical Considerations**
+
+#### **A. Closing a Notebook**
+If you close a notebook or stop the kernel, the kernel process is terminated, and the connection file becomes invalid.
+
+#### **B. Reusing Kernels**
+Jupyter allows you to connect multiple notebooks to the same kernel. This is why you can:
+- Open multiple tabs of the same notebook, and the state (variables, imports) remains consistent.
+- Disconnect/reconnect to a kernel without losing state.
+
+#### **C. Security and Lifecycle**
+- **Security**: Connection files include an HMAC key to prevent unauthorized processes from sending commands to the kernel.
+- **Kernel Shutdown**: When the kernel process shuts down (e.g., closing the notebook), the connection is severed, and its associated TCP ports are closed.
+
+---
+
 One can connect multiple clients to a single kernel.
 
 ```
@@ -420,6 +523,134 @@ This system ensures:
    - The malicious code is executed (so you must exercise caution).
 
 ---
+
+# Typical Workflow
+To see how the above channels play together, let’s review the code execution workflow.
+
+When you type something like print("hey") in a notebook cell and execute the cell, this is what happens.
+
+## The Code Execution Workflow
+
+First off, we need to request a code execution via the shell channel by sending a message like this:
+
+```
+{
+  "header":{
+    "msg_id":"71266d1336a9481e90f85dcfe86c5079",
+    "version":"5.2",
+    "msg_type":"execute_request",
+    "date":"2023-08-03T13:47:27.791Z",
+    "username":"roma",
+    "session":"f8d6d29d3ddd4c5bbd5f72cc1b0e87bd",
+  },
+  "metadata":{},
+  "content":{
+    "code":"print(\"hey\")",
+    "silent":false,
+    "store_history":true,
+    "user_expressions":{},
+    "allow_stdin":true,
+    "stop_on_error":true
+  },
+  "buffers":[],
+  "parent_header":{},
+}
+```
+In this message, the header.msg_type indicates the target action in the [action]_request format. The content field contains action’s details like the exact code to execute. Since this message inits a new code execution workflow, its header’s data is going to be attached to all related messages triggered by the workflow.
+
+The execute_request triggers a bunch of follow-up messages and most of them are sent via the iopub channel including the actual output of the executed cell:
+
+```
+{
+  "header": {
+    "msg_id": "c80bed83-d8a85fd21dc416c2831b634a_55711_96", 
+    "version": "5.3",
+    "msg_type": "stream", 
+    "date": "2023-08-03T13:47:27.799887Z",
+    "username": "roma", 
+    "session": "c80bed83-d8a85fd21dc416c2831b634a",
+  }, 
+  "parent_header": {
+    "msg_id": "71266d1336a9481e90f85dcfe86c5079",
+    "version": "5.2",
+    "msg_type": "execute_request",
+    "date": "2023-08-03T13:47:27.791000Z", 
+    "username": "roma", 
+    "session": "f8d6d29d3ddd4c5bbd5f72cc1b0e87bd",
+  },
+  "msg_id": "c80bed83-d8a85fd21dc416c2831b634a_55711_96", 
+  "msg_type": "stream", 
+  "metadata": {}, 
+  "content": {
+    "name": "stdout", 
+    "text": "hey\n"
+  }, 
+  "buffers": []
+}
+```
+
+The parent_header holds all information from the initial request message’s header. This way both messages are linked (it looks like stamp coupling). The stream message type essentially means execution output stream and contains the output itself in the content.text field.
+
+Besides this message, we receive a few more regarding the kernel status and a sign that the kernel is about to execute our code (which is useful if you execute a hell lot of cells).
+
+Finally, the execute_reply message comes on the shell channel back holding just some summary:
+
+```
+{
+  "header": {
+    // ...
+  }, 
+  "msg_id": "c80bed83-d8a85fd21dc416c2831b634a_55711_107", 
+  "msg_type": "execute_reply", 
+  "parent_header": {
+    // ...
+  }, 
+  "metadata": {
+    "started": "2023-08-03T14:27:53.081090Z", 
+    "dependencies_met": true, 
+    "engine": "858ec48a-a485-41b0-a998-8c878945a732", 
+    "status": "ok"
+  }, 
+  "content": {
+    "status": "ok", 
+    "execution_count": 10, 
+    "user_expressions": {}, 
+    "payload": []
+  }, 
+  "buffers": []
+}
+```
+
+If an error happened during the execution, the workflow would be the same, but we would receive an error message instead of the stream:
+
+```
+{
+  "header": {
+    // ...
+    "msg_type": "error", 
+    // ...
+  }, 
+  "msg_id": "c80bed83-d8a85fd21dc416c2831b634a_55711_101", 
+  "msg_type": "error", 
+  "parent_header": {
+    // ...
+  }, 
+  "metadata": {}, 
+  "content": {
+    "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m", 
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)", 
+      "Cell \u001b[0;32mIn[9], line 1\u001b[0m\n\u001b[0;32m----> 1\u001b[0m \u001b[38;5;28mprint\u001b[39m(\u001b[43mmy_age\u001b[49m)\n", 
+      "\u001b[0;31mNameError\u001b[0m: name 'hey' is not defined"
+    ], 
+    "ename": "NameError", 
+    "evalue": "name 'hey' is not defined"
+  }, 
+  "buffers": [], 
+}
+```
+
+Alright, enough about message joggling. Let’s zoom out a bit and see how some of the kernel actions were implemented
 
 **Cons:**
 
