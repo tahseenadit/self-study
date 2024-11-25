@@ -472,9 +472,25 @@ Let’s say you start a notebook named `example.ipynb` with Python 3 as the kern
 If you close a notebook or stop the kernel, the kernel process is terminated, and the connection file becomes invalid.
 
 #### **B. Reusing Kernels**
-Jupyter allows you to connect multiple notebooks to the same kernel. This is why you can:
-- Open multiple tabs of the same notebook, and the state (variables, imports) remains consistent.
-- Disconnect/reconnect to a kernel without losing state.
+1. **Multiple Tabs of the Same Notebook:**
+   - When you open the same notebook in multiple browser tabs, they share the **same kernel**. This is why the state (variables, imports, etc.) remains consistent across those tabs. They are literally operating on the same Python kernel process.
+
+2. **Multiple Separate Notebooks:**
+   - By default, separate notebooks have their **own distinct kernels**. Each notebook typically starts with a fresh, independent kernel when you open it. Therefore, the variables and states in one notebook do not automatically affect another.
+
+3. **Session ID and Kernel Sharing:**
+   - Jupyter kernels can be explicitly shared between separate notebooks, but this does not happen automatically. To share code, state, or variables across different notebooks, you would need to **manually connect them to the same kernel**. This can be done, for example, by specifying the same session ID when connecting to the kernel.
+
+4. **Code Sharing without Explicit Kernel Sharing:**
+   - If two separate notebooks are connected to **distinct kernels** (their default behavior), they cannot share variables or state directly. However, you can share code through:
+     - Importing a shared Python module.
+     - Using shared files or resources.
+     - Leveraging Jupyter-specific features like `nbclient` or cell magics.
+
+In summary:
+- **Default behavior:** Separate notebooks = separate kernels (no shared state).
+- **Explicit configuration:** Separate notebooks can share a kernel if connected to the same session ID, allowing shared variables and state.
+
 
 #### **C. Security and Lifecycle**
 - **Security**: Connection files include an HMAC key to prevent unauthorized processes from sending commands to the kernel.
