@@ -472,6 +472,9 @@ Let’s say you start a notebook named `example.ipynb` with Python 3 as the kern
 If you close a notebook or stop the kernel, the kernel process is terminated, and the connection file becomes invalid.
 
 #### **B. Reusing Kernels**
+
+**session ID** and ****kernel ID are typically in a 1:1 relationship within Jupyter's architecture. Each session is tied to exactly one kernel, meaning there is a 1:1 mapping between a session ID and a kernel ID. This ensures that the session always points to a specific kernel for code execution.
+
 1. **Multiple Tabs of the Same Notebook:**
    - When you open the same notebook in multiple browser tabs, they share the **same kernel**. This is why the state (variables, imports, etc.) remains consistent across those tabs. They are literally operating on the same Python kernel process.
 
@@ -480,6 +483,8 @@ If you close a notebook or stop the kernel, the kernel process is terminated, an
 
 3. **Session ID and Kernel Sharing:**
    - Jupyter kernels can be explicitly shared between separate notebooks, but this does not happen automatically. To share code, state, or variables across different notebooks, you would need to **manually connect them to the same kernel**. This can be done, for example, by specifying the same session ID when connecting to the kernel.
+   - **Kernel Sharing Based on Session ID**: The session ID acts as the link between the notebook client and the kernel process. By default, separate notebooks have distinct session IDs, which means their kernels are isolated. If two notebooks share the same session ID (achieved programmatically or through manual configuration), they will use the same kernel and thus share the same state.
+   - However, manual kernel sharing is possible. If you explicitly connect a new notebook to an existing kernel (e.g., by using the same kernel ID via the REST API or another mechanism), the two notebooks can share state and interact with the same kernel.
 
 4. **Code Sharing without Explicit Kernel Sharing:**
    - If two separate notebooks are connected to **distinct kernels** (their default behavior), they cannot share variables or state directly. However, you can share code through:
