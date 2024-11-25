@@ -1174,6 +1174,10 @@ This system ensures:
 # Typical Workflow
 To see how the above channels play together, let’s review the code execution workflow.
 
+## Start the kernel
+
+You open or create a notebook and start a kernel. Here's what happens: https://jupyter-server.readthedocs.io/en/latest/developers/architecture.html
+
 When you type something like print("hey") in a notebook cell and execute the cell, this is what happens.
 
 ## The Code Execution Workflow
@@ -1297,7 +1301,9 @@ If an error happened during the execution, the workflow would be the same, but w
 }
 ```
 
-Alright, enough about message joggling. Let’s zoom out a bit and see how some of the kernel actions were implemented
+## Shut down the kernel
+
+You shut down a kernel. Here's what happens: https://jupyter-server.readthedocs.io/en/latest/developers/architecture.html
 
 **Cons:**
 
