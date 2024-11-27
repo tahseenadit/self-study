@@ -148,3 +148,10 @@ For **less reads and less writes**, **Cloud Storage in archival tiers** (e.g., c
 # Cost requirements
 - Infra cost
 - Network cost
+
+## Network cost
+Read the network section in here: https://cloud.google.com/storage/pricing#network-egress
+### Example
+**Use case:** When the user opens my app, their file needs to be downloaded to their device. Then, while the user is using the app, I need to frequently (every few minutes) sync the user's file from the app to the cloud. So the number of uploads will be much greater than the number of downloads. Is GCS a cost-effective solution in this case? 
+
+This is a case of inbound data transfer under general network usage. Inbound data transfer for cloud storage refers to the process of transferring data into a cloud storage system from external sources. This typically includes uploading files or data from on-premises systems, other cloud services, or end-user devices to the cloud storage service (e.g., Google Cloud Storage, AWS S3, Azure Blob Storage). In this scenario GCS would be just fine as inbound data transfer to GCS is free of charge.
