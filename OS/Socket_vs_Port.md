@@ -12,6 +12,16 @@ A TCP connection involves two endpoints:
 Together, these form a "pair" that uniquely identifies the connection. This pair is also called a 4-tuple:
 (Client IP, Client Port, Server IP, Server Port)
 
+### The Role of Listener Sockets
+A listener socket is a special type of socket that is in the listen state:
+
+It "waits" for incoming connection requests on a specific IP address and port combination.
+It is the only socket for a particular IP/port combination that can accept new connections.
+When a connection is established:
+
+The listener socket does not itself handle the communication.
+Instead, a new socket is created for each incoming connection. This new socket is uniquely identified by the 4-tuple (source IP, source port, destination IP, destination port).
+
 ### **1. What is a Network Address?**
 A **network address** (like an IP address) is like the "street address" of a device on a network. It tells other devices where to send data. However, an IP address alone doesn’t specify *which service* or application on the device should receive the data.
 
