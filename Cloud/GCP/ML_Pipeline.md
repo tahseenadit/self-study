@@ -104,12 +104,18 @@ Popular tools and platforms for orchestrating ML workflows include:
 - Scaleable
 - based on containers and Google Cloud services
 
+In the cloud console, when you create a vertex ai pipeline you can use pre-build template or you can import a file.
+
+### Create a pipeline to import in Vertex AI
+
 You can use two SDKs **(** an SDK serves as a complete toolkit for developers to build and enhance applications, streamlining integration with specific platforms or services (Core Libraries, APIs, Compilers, Debuggers, Documentation, Templates, Dependency management tools (e.g., Maven, Gradle), Build scripts or frameworks (e.g., CMake for C/C++ projects), Runtime Environment (i.e Java Virtual Machine in the JDK), Testing tools etc)**)** to create a ML pipeline in vertex AI. They are:
 
 - Kubeflow Pipelines SDK v1.8 or later (v2 is recommended)
   - build custom components or reuse prebuilt components 
 - TensorFlow Extended v0.30.0 or later
   - TensorFlow in an ML workflow that processes terabytes of structured data or text data. TFX pipeline is not recommended since it is a very specific solution for very-high load tensorflow use-cases and it incurs a high penalty due to the complexity and poor integration with Vertex AI.
+ 
+You need to install these SDKs before you begin to create the pipeline. They are not preinstalled in Vertex AI.  
  
 Suppose I have the following workflow:
 
@@ -230,5 +236,9 @@ def pipeline(project_id: str):
 ```
 
 We can save this as a .yaml file. This yaml file is our pipeline file. As you can see, kubeflow supports google_cloud_pipeline_components.
- 
-You need to install these SDKs before you begin to create the pipeline. They are not preinstalled in Vertex AI.  
+
+You can then:
+
+- Import this file when creating vertex ai pipeline in cloud console.
+- Programmatically submit the run
+
